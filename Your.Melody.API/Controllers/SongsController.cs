@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Your.Melody.API.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Your.Melody.Library.Helpers;
+using Your.Melody.Library.Models;
 
 namespace Your.Melody.API.Controllers
 {
@@ -9,11 +8,16 @@ namespace Your.Melody.API.Controllers
     [ApiController]
     public class SongsController : ControllerBase
     {
+        private readonly ISongsDataHelper _songsDataHelper;
 
-        [HttpPost]
-        public void Post([FromBody]PlaylistModel playlist)
+        public SongsController(ISongsDataHelper songsDataHelper)
         {
-
+            _songsDataHelper = songsDataHelper;
+        }
+        [HttpGet]
+        public async Task<PlaylistModel> GetSongs([FromQuery] string playlistId)
+        {
+            return await _songsDataHelper.GetPlaylist(playlistId);
         }
     }
 }
