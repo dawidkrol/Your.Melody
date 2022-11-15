@@ -1,4 +1,6 @@
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Your.Melody.API.Models;
 using Your.Melody.Library.Helpers;
@@ -32,10 +34,16 @@ builder.Services.AddScoped<ISongsDataHelper, SongsDataHelper>();
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json",
+        "Your.Melody.API v1");
+    });
 }
 
 app.UseHttpsRedirection();
