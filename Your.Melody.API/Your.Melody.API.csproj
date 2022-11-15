@@ -12,11 +12,9 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Google.Apis" Version="1.57.0" />
     <PackageReference Include="Google.Apis.Discovery.v1" Version="1.57.0" />
+    <PackageReference Include="HotChocolate" Version="13.0.0-preview.80" />
+    <PackageReference Include="HotChocolate.Data" Version="13.0.0-preview.80" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
