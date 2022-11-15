@@ -13,8 +13,14 @@ namespace Your.Melody.API.Controllers
         {
             _songsController = songsController;
         }
-        [HttpPost("CreateGame")]
-        public async Task<Guid> CreateGame(string playlistUrl, GameModes mode)
+        /// <summary>
+        /// Creating new game with new playlist
+        /// </summary>
+        /// <param name="playlistUrl">Playlist to be used in the game</param>
+        /// <param name="mode">Game mode selection: 1-single, 2-party, 3-multi</param>
+        /// <returns>Game id</returns>
+        [HttpPost("CreateGameNewPlaylist")]
+        public async Task<Guid> CreateGameNewPlaylist(string playlistUrl, GameModes mode)
         {
             var newGame = new Game();
             newGame.Id = new Guid();
@@ -22,16 +28,47 @@ namespace Your.Melody.API.Controllers
             newGame.GameMode = mode;
             return newGame.Id;
         }
+        /// <summary>
+        /// Creating new game with already approved playlist
+        /// </summary>
+        /// <param name="playlistUrl">Playlist to be used in the game</param>
+        /// <param name="mode">Game mode selection: 1-single, 2-party, 3-multi</param>
+        /// <returns>Game id</returns>
+        [HttpPost("CreateGameApprovedPlaylist")]
+        public async Task<Guid> CreateGameApprovedPlaylist(Guid playlistId, GameModes mode)
+        {
+            var newGame = new Game();
+            newGame.Id = new Guid();
+            //newGame.Playlist = await _songsController.GetSongs(playlistUrl);
+            newGame.GameMode = mode;
+            return newGame.Id;
+        }
+        /// <summary>
+        /// Returning informations about game
+        /// </summary>
+        /// <param name="gameId">Game id</param>
+        /// <returns>The game model that contains all information about the game</returns>
         [HttpGet("InformationAboutGame")]
         public async Task<Game> InformationAboutGame(Guid gameId)
         {
             return new Game();
         }
+        /// <summary>
+        /// Getting the song to be used for the game next
+        /// </summary>
+        /// <param name="gameId">Game id</param>
+        /// <returns>Song model</returns>
         [HttpGet("NextSong")]
         public async Task<Song> NextSong(Guid gameId)
         {
             return new Song();
         }
+        /// <summary>
+        /// User Game Result
+        /// </summary>
+        /// <param name="gameId">Game id</param>
+        /// <param name="songId">Played song id</param>
+        /// <param name="points">Number of points earned by the user</param>
         [HttpPost("PlayerReply")]
         public async Task PlayerReply(Guid gameId, Guid songId, double points)
         {

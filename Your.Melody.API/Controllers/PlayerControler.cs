@@ -11,6 +11,11 @@ namespace Your.Melody.API.Controllers
         {
 
         }
+        /// <summary>
+        /// Adding new player to the created game.
+        /// </summary>
+        /// <param name="gameId">game id</param>
+        /// <param name="playerNickname">Player nickname</param>
         [HttpPost("AddNewPlayerToGame")]
         public async Task AddNewPlayerToGame(Guid gameId, string playerNickname)
         {

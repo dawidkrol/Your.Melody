@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using System.Reflection;
 using Your.Melody.API.Models;
 using Your.Melody.Library.Helpers;
 using Your.Melody.Library.Models;
@@ -19,7 +21,12 @@ builder.Services.AddAutoMapper(config =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+});
 
 builder.Services.AddScoped<ISongsDataHelper, SongsDataHelper>();
 

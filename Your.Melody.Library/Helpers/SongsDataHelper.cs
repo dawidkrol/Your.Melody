@@ -23,14 +23,14 @@ namespace Your.Melody.Library.Helpers
             var valResp = await httpClient.GetFromJsonAsync<PlaylistYtModel>($"https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails%2Cid%2Csnippet&" +
                 $"playlistId={playlistId}&key={apiKey}");
             PlaylistModel values = await ytModelConventer(valResp);
-            values.Songs.ForEach(x => SemeratingTitleAndArtist(ref x));
+            values.Songs.ForEach(x => SeperatingTitleAndArtist(ref x));
             return values;
         }
         private async Task<PlaylistModel> ytModelConventer(PlaylistYtModel playlistYtModel)
         {
             return _mapper.Map<PlaylistModel>(playlistYtModel);
         }
-        public void SemeratingTitleAndArtist(ref SongDataModel sdm)
+        public void SeperatingTitleAndArtist(ref SongDataModel sdm)
         {
             var artist = Regex.Split(sdm.Title, " - ");
             if (artist is null || artist.Length == 1)

@@ -9,6 +9,6 @@
         public bool WasPlayed { get; set; }
         public Player Player { get; set; }
         public double Points { get; set; }
-        //public string ChannelTitle { get; set; }
+        public int SecToStart { get; set; }
     }
 }
