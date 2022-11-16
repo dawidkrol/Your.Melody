@@ -18,15 +18,21 @@ namespace Your.Melody.API.Controllers
         /// </summary>
         /// <param name="playlistUrl">Playlist to be used in the game</param>
         /// <param name="mode">Game mode selection: 1-single, 2-party, 3-multi</param>
-        /// <returns>Game id</returns>
+        /// <returns>Returning playlist to approve.</returns>
         [HttpPost("CreateGameNewPlaylist")]
-        public async Task<Guid> CreateGameNewPlaylist(string playlistUrl, GameModes mode)
+        public async Task<PlaylistModel> CreateGameNewPlaylist(string playlistUrl, GameModes mode)
         {
-            var newGame = new Game();
-            newGame.Id = new Guid();
-            newGame.Playlist = await _songsController.GetSongs(playlistUrl);
-            newGame.GameMode = mode;
-            return newGame.Id;
+            return new PlaylistModel();
+        }
+        /// <summary>
+        /// Checking new playlist for game
+        /// </summary>
+        /// <param name="model">Playlist model, that was returned by CreateGameNewPlaylist endpoint</param>
+        /// <returns>New game guid</returns>
+        [HttpPost("CheckingPlaylist")]
+        public async Task<Guid> CheckingPlaylist(PlaylistModel model)
+        {
+            return new Guid();
         }
         /// <summary>
         /// Creating new game with already approved playlist

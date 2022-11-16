@@ -12,14 +12,16 @@ builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(config =>
 {
-    config.CreateMap<PlaylistYtModel, PlaylistModel>()
+    config.CreateMap<PlaylistYtModel, Your.Melody.Library.Models.PlaylistModel>()
             .ForMember(x => x.Songs, opt => opt.MapFrom(u => u.items));
-    config.CreateMap<SongModel, Your.Melody.Library.Models.SongDataModel>()
+    config.CreateMap<Your.Melody.Library.Models.SongModel, Your.Melody.Library.Models.SongDataModel>()
             .ForMember(x => x.VideoId, opt => opt.MapFrom(u => u.contentDetails.videoId))
             .ForMember(x => x.Title, opt => opt.MapFrom(u => u.snippet.title));
     //.ForMember(x => x.ChannelTitle, opt => opt.MapFrom(u => u.snippet.channelTitle));
-    config.CreateMap<PlaylistModel, Playlist>();
+    config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Playlist>();
     config.CreateMap<SongDataModel, Song>();
+    config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.PlaylistModel>();
+    config.CreateMap<SongDataModel, Your.Melody.API.Models.SongModel>();
 });
 
 builder.Services.AddEndpointsApiExplorer();
