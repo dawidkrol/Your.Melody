@@ -1,0 +1,749 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Your.Melody.API",
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/api/ApprovedPlaylistControler/ApprovedPlaylists" : {
+      "get" : {
+        "tags" : [ "ApprovedPlaylistControler" ],
+        "summary" : "Returns playlists that have been approved",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ApprovedPlaylist"
+                  }
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ApprovedPlaylist"
+                  }
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ApprovedPlaylist"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApprovedPlaylistControler/AddPlaylistToApproved" : {
+      "post" : {
+        "tags" : [ "ApprovedPlaylistControler" ],
+        "summary" : "Adding playlist to the approved",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "description" : "Playlist name",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "description",
+          "in" : "query",
+          "description" : "Playlist description",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Playlist"
+              }
+            },
+            "text/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Playlist"
+              }
+            },
+            "application/*+json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Playlist"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/ApprovedPlaylistControler/LikePlaylist" : {
+      "post" : {
+        "tags" : [ "ApprovedPlaylistControler" ],
+        "summary" : "Adding like to the playlist",
+        "parameters" : [ {
+          "name" : "playlistId",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/ApprovedPlaylistControler/UnlikePlaylist" : {
+      "post" : {
+        "tags" : [ "ApprovedPlaylistControler" ],
+        "summary" : "Adding unlike to the playlist",
+        "parameters" : [ {
+          "name" : "playlistId",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/Game/CreateGameNewPlaylist" : {
+      "post" : {
+        "tags" : [ "Game" ],
+        "summary" : "Creating new game with new playlist",
+        "parameters" : [ {
+          "name" : "playlistUrl",
+          "in" : "query",
+          "description" : "Playlist to be used in the game",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "description" : "Game mode selection: 1-single, 2-party, 3-multi",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameModes"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/CheckingPlaylist" : {
+      "post" : {
+        "tags" : [ "Game" ],
+        "summary" : "Checking new playlist for game",
+        "requestBody" : {
+          "description" : "Playlist model, that was returned by CreateGameNewPlaylist endpoint",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PlaylistModel"
+              }
+            },
+            "text/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PlaylistModel"
+              }
+            },
+            "application/*+json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PlaylistModel"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "format" : "uuid"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "format" : "uuid"
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "format" : "uuid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/CreateGameApprovedPlaylist" : {
+      "post" : {
+        "tags" : [ "Game" ],
+        "summary" : "Creating new game with already approved playlist",
+        "parameters" : [ {
+          "name" : "playlistId",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "description" : "Game mode selection: 1-single, 2-party, 3-multi",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/GameModes"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "format" : "uuid"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "format" : "uuid"
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "format" : "uuid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/InformationAboutGame" : {
+      "get" : {
+        "tags" : [ "Game" ],
+        "summary" : "Returning informations about game",
+        "parameters" : [ {
+          "name" : "gameId",
+          "in" : "query",
+          "description" : "Game id",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Game"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Game"
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Game"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/NextSong" : {
+      "get" : {
+        "tags" : [ "Game" ],
+        "summary" : "Getting the song to be used for the game next",
+        "parameters" : [ {
+          "name" : "gameId",
+          "in" : "query",
+          "description" : "Game id",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Song"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Song"
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Song"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/PlayerReply" : {
+      "post" : {
+        "tags" : [ "Game" ],
+        "summary" : "User Game Result",
+        "parameters" : [ {
+          "name" : "gameId",
+          "in" : "query",
+          "description" : "Game id",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        }, {
+          "name" : "songId",
+          "in" : "query",
+          "description" : "Played song id",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        }, {
+          "name" : "points",
+          "in" : "query",
+          "description" : "Number of points earned by the user",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/PlayerControler/AddNewPlayerToGame" : {
+      "post" : {
+        "tags" : [ "PlayerControler" ],
+        "summary" : "Adding new player to the created game.",
+        "parameters" : [ {
+          "name" : "gameId",
+          "in" : "query",
+          "description" : "game id",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        }, {
+          "name" : "playerNickname",
+          "in" : "query",
+          "description" : "Player nickname",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/Songs/GetSongs" : {
+      "get" : {
+        "tags" : [ "Songs" ],
+        "summary" : "Extracting songs from a playlist",
+        "parameters" : [ {
+          "name" : "playlistUrl",
+          "in" : "query",
+          "description" : "Link to the playlist from youtube",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Songs/EditPlaylist" : {
+      "post" : {
+        "tags" : [ "Songs" ],
+        "summary" : "Editing Title, Artist, SecToStart values for playlist",
+        "requestBody" : {
+          "description" : "Playlist model",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PlaylistModel"
+              }
+            },
+            "text/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PlaylistModel"
+              }
+            },
+            "application/*+json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PlaylistModel"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              },
+              "text/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlaylistModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ApprovedPlaylist" : {
+        "type" : "object",
+        "properties" : {
+          "songs" : {
+            "type" : "array",
+            "nullable" : true,
+            "items" : {
+              "$ref" : "#/components/schemas/SongModel"
+            }
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "uri" : {
+            "type" : "string",
+            "format" : "uri",
+            "nullable" : true
+          },
+          "name" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "description" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "likes" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "unlikes" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Confirmed playlist that guarantees the right titles,\r\nartist names and where the music will start"
+      },
+      "Game" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "gameMode" : {
+            "$ref" : "#/components/schemas/GameModes"
+          },
+          "players" : {
+            "type" : "array",
+            "nullable" : true,
+            "items" : {
+              "$ref" : "#/components/schemas/Player"
+            }
+          },
+          "playlist" : {
+            "$ref" : "#/components/schemas/Playlist"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "GameModes" : {
+        "type" : "integer",
+        "format" : "int32",
+        "enum" : [ 0, 1, 2 ]
+      },
+      "Player" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "gameId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "points" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "rounds" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "user" : {
+            "$ref" : "#/components/schemas/User"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Unique player in the game"
+      },
+      "Playlist" : {
+        "type" : "object",
+        "properties" : {
+          "songs" : {
+            "type" : "array",
+            "nullable" : true,
+            "items" : {
+              "$ref" : "#/components/schemas/Song"
+            }
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Playlist model to use in the game"
+      },
+      "PlaylistModel" : {
+        "type" : "object",
+        "properties" : {
+          "songs" : {
+            "type" : "array",
+            "nullable" : true,
+            "items" : {
+              "$ref" : "#/components/schemas/SongModel"
+            }
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Playlist model to use before the game to present or edit the playlist"
+      },
+      "Song" : {
+        "type" : "object",
+        "properties" : {
+          "songId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "videoId" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "title" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "artist" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "wasPlayed" : {
+            "type" : "boolean"
+          },
+          "player" : {
+            "$ref" : "#/components/schemas/Player"
+          },
+          "points" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "secToStart" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Song model to use in the game"
+      },
+      "SongModel" : {
+        "type" : "object",
+        "properties" : {
+          "songId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "videoId" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "title" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "artist" : {
+            "type" : "string",
+            "nullable" : true
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Song model to use before the game to present or edit the song data"
+      },
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "email" : {
+            "type" : "string",
+            "nullable" : true
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Registered user"
+      }
+    }
+  }
+}
