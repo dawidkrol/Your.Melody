@@ -49,5 +49,25 @@ namespace Your.Melody.API.Controllers
         {
 
         }
+        /// <summary>
+        /// Editing existing approved playlist
+        /// </summary>
+        /// <param name="playlist">Edited approved playlist</param>
+        [Authorize]
+        [HttpPut("EditApprovedPlaylist")]
+        public async Task EditApprovedPlaylist(Playlist playlist)
+        {
+
+        }
+        /// <summary>
+        /// Deleting existing approved playlist
+        /// </summary>
+        /// <param name="id">The id of the playlist you want to delete</param>
+        [Authorize]
+        [HttpDelete("DeleteApprovedPlaylist/{id}")]
+        public async Task DeleteApprovedPlaylist([FromQuery]Guid id)
+        {
+
+        }
     }
 }

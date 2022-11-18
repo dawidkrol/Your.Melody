@@ -36,7 +36,7 @@ namespace Your.Melody.API.Controllers
         /// </summary>
         /// <param name="playlist">Playlist model</param>
         /// <returns>Edited list of songs</returns>
-        [HttpPost("EditPlaylist")]
+        [HttpPut("EditPlaylist")]
         public async Task<PlaylistModel> EditPlaylist(PlaylistModel playlist)
         {
             return new PlaylistModel();

@@ -80,5 +80,15 @@ namespace Your.Melody.API.Controllers
         {
 
         }
+
+        /// <summary>
+        /// Deleting specific game
+        /// </summary>
+        /// <param name="gameId">Game id</param>
+        [HttpDelete("DeleteGame/{gameId}")]
+        public async Task DeleteGame(Guid gameId)
+        {
+
+        }
     }
 }
