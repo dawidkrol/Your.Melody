@@ -39,5 +39,10 @@ namespace Your.Melody.Library.Helpers
             sdm.Title = title.FirstOrDefault() ?? "";
             sdm.Artist = artist.FirstOrDefault() ?? "";
         }
+        public async Task<string> SeperatingPlaylistFromUrl(string url)
+        {
+            var data = Regex.Match(url, "(?<=list=)([a-zA-Z0-9])\\w+").Value;
+            return data;
+        }
     }
 }

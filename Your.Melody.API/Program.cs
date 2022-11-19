@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Your.Melody.API.Models;
+using Your.Melody.Library.Data;
 using Your.Melody.Library.Helpers;
 using Your.Melody.Library.Models;
 
@@ -17,11 +18,30 @@ builder.Services.AddAutoMapper(config =>
     config.CreateMap<Your.Melody.Library.Models.SongModel, Your.Melody.Library.Models.SongDataModel>()
             .ForMember(x => x.VideoId, opt => opt.MapFrom(u => u.contentDetails.videoId))
             .ForMember(x => x.Title, opt => opt.MapFrom(u => u.snippet.title));
-    //.ForMember(x => x.ChannelTitle, opt => opt.MapFrom(u => u.snippet.channelTitle));
-    config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Playlist>();
-    config.CreateMap<SongDataModel, Song>();
+    config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.Playlist>();
+    config.CreateMap<Your.Melody.API.Models.PlaylistModel, Your.Melody.API.Models.Playlist>();
+    config.CreateMap<SongDataModel, Your.Melody.API.Models.Song>();
+    config.CreateMap<Your.Melody.API.Models.Song, Your.Melody.API.Models.SongModel>();
+    config.CreateMap<Your.Melody.API.Models.SongModel, Your.Melody.API.Models.Song>();
+    config.CreateMap<Your.Melody.API.Models.Playlist, Your.Melody.API.Models.PlaylistModel>();
     config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.PlaylistModel>();
     config.CreateMap<SongDataModel, Your.Melody.API.Models.SongModel>();
+
+    // GameModel -> Game
+    config.CreateMap<GameModel, Game>();
+    config.CreateMap<Your.Melody.Library.Models.GameModes, Your.Melody.API.Models.GameModes>();
+    config.CreateMap<Your.Melody.Library.Models.Playlist, Your.Melody.API.Models.Playlist>();
+    config.CreateMap<PlayerModel, Player>();
+    config.CreateMap<UserModel, User>();
+    config.CreateMap<Your.Melody.Library.Models.Song, Your.Melody.API.Models.Song>();
+
+    //Game -> GameModel
+    config.CreateMap<Game, GameModel>();
+    config.CreateMap<Your.Melody.API.Models.GameModes,Your.Melody.Library.Models.GameModes>();
+    config.CreateMap<Your.Melody.API.Models.Playlist, Your.Melody.Library.Models.Playlist>();
+    config.CreateMap<Player, PlayerModel>();
+    config.CreateMap<User, UserModel>();
+    config.CreateMap<Your.Melody.API.Models.Song, Your.Melody.Library.Models.Song>();
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -33,6 +53,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddScoped<ISongsDataHelper, SongsDataHelper>();
+builder.Services.AddScoped<IGameData, GameData>();
+builder.Services.AddScoped<GameHelper>();
 
 var app = builder.Build();
 

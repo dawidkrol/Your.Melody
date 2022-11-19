@@ -6,5 +6,6 @@ namespace Your.Melody.Library.Helpers
     {
         Task<PlaylistModel> GetPlaylist(string playlistId);
         void SeperatingTitleAndArtist(ref SongDataModel sdm);
+        Task<string> SeperatingPlaylistFromUrl(string url);
     }
 }

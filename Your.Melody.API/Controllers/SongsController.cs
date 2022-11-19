@@ -28,7 +28,7 @@ namespace Your.Melody.API.Controllers
         [HttpGet("GetSongs")]
         public async Task<PlaylistModel> GetSongs([FromQuery] string playlistUrl)
         {
-            var data = Regex.Match(playlistUrl, "(?<=list=)([a-zA-Z0-9])\\w+").Value;
+            var data = await _songsDataHelper.SeperatingPlaylistFromUrl(playlistUrl);
             return _mapper.Map<PlaylistModel>(await _songsDataHelper.GetPlaylist(data));
         }
         /// <summary>
