@@ -70,13 +70,15 @@ namespace Your.Melody.API.Controllers
             return new Song();
         }
         /// <summary>
-        /// User Game Result
+        /// User Game Responce
         /// </summary>
         /// <param name="gameId">Game id</param>
         /// <param name="songId">Played song id</param>
-        /// <param name="points">Number of points earned by the user</param>
-        [HttpPost("PlayerReply")]
-        public async Task PlayerReply(Guid gameId, Guid songId, double points)
+        /// <param name="title">Title that user writed</param>
+        /// <param name="artist">Artist that user writed</param>
+        /// <param name="secFromStart">Secound from start when user answered</param>
+        [HttpPost("PlayerResponce")]
+        public async Task PlayerResponce(Guid gameId, Guid songId, string title, string artist, int secFromStart)
         {
 
         }
