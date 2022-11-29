@@ -25,24 +25,12 @@ namespace Your.Melody.API.Controllers
             _gameHelper = gameHelper;
         }
         /// <summary>
-        /// Creating new game with new playlist
-        /// </summary>
-        /// <param name="playlistUrl">Playlist to be used in the game</param>
-        /// <param name="mode">Game mode selection: 1-single, 2-party, 3-multi</param>
-        /// <returns>Returning playlist to approve.</returns>
-        [HttpPost("CreateGameNewPlaylist")]
-        public async Task<PlaylistModel> CreateGameNewPlaylist(string url)
-        {
-            var playlistUrl = await _songsDataHelper.SeperatingPlaylistFromUrl(url);
-            return _mapper.Map<PlaylistModel>(await _songsDataHelper.GetPlaylist(playlistUrl));
-        }
-        /// <summary>
         /// Checking new playlist for game
         /// </summary>
-        /// <param name="model">Playlist model, that was returned by CreateGameNewPlaylist endpoint</param>
+        /// <param name="model">Playlist model, that was returned by endpoint</param>
         /// <returns>New game guid</returns>
-        [HttpPost("CheckingPlaylist")]
-        public async Task<Guid> CheckingPlaylist(PlaylistModel model, GameModes mode)
+        [HttpPost("CreateGameNewPlaylist")]
+        public async Task<Guid> CreateGameNewPlaylist(PlaylistModel model, GameModes mode)
         {
             Game _game = new();
             _game.GameMode = mode;
@@ -56,7 +44,7 @@ namespace Your.Melody.API.Controllers
         /// <summary>
         /// Creating new game with already approved playlist
         /// </summary>
-        /// <param name="playlistUrl">Playlist to be used in the game</param>
+        /// <param name="playlistId">Playlist to be used in the game</param>
         /// <param name="mode">Game mode selection: 1-single, 2-party, 3-multi</param>
         /// <returns>Game id</returns>
         [HttpPost("CreateGameApprovedPlaylist")]
@@ -88,12 +76,14 @@ namespace Your.Melody.API.Controllers
         /// User Game Result
         /// </summary>
         /// <param name="gameId">Game id</param>
-        /// <param name="songId">Played song id</param>
-        /// <param name="points">Number of points earned by the user</param>
+        /// <param name="songId">Played song id</param><
+        /// <param name="titleByUser"></param>
+        /// <param name="artistByUser"></param>
+        /// <param name="secWhenUserResponce"></param>
         [HttpPost("PlayerReply")]
-        public async Task PlayerReply(Guid gameId, Guid songId, double points)
+        public async Task PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
         {
-            await _gameHelper.PlayerResponce(gameId,songId, points);
+            await _gameHelper.PlayerResponce(gameId,songId, titleByUser, artistByUser, secWhenUserResponce);
         }
 
         /// <summary>

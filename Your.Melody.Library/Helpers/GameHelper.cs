@@ -31,13 +31,18 @@ namespace Your.Melody.Library.Helpers
             return toPlay;
         }
 
-        public async Task PlayerResponce(Guid gameId, Guid songId, double points)
+        public async Task PlayerResponce(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
         {
             var game = _gameData.GetGame(gameId);
             var s = game.Playlist.Songs.Single(x => x.SongId == songId);
-            s.Points = points;
+            s.Points = await CountingPointsAsync(s,titleByUser,artistByUser,secWhenUserResponce);
             s.Player.Points += s.Points;
             s.WasPlayed = true;
+        }
+
+        public async Task<double> CountingPointsAsync(Song song, string titleByUser, string artistByUser, int secWhenUserResponce)
+        {
+            return 3;
         }
     }
 }
