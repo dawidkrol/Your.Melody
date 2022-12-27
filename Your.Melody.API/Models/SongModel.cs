@@ -5,9 +5,10 @@
     /// </summary>
     public class SongModel
     {
-        public Guid SongId { get; set; } = new Guid();
+        public Guid SongId { get; set; }
         public string VideoId { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
+        public int SecToStart { get; set; }
     }
 }

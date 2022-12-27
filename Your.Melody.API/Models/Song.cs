@@ -5,7 +5,7 @@
     /// </summary>
     public class Song
     {
-        public Guid SongId { get; set; } = new Guid();
+        public Guid SongId { get; set; }
         public string VideoId { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }

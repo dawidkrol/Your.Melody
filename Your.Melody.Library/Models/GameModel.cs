@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Your.Melody.Library.Models
+{
+    public class GameModel
+    {
+        public Guid Id { get; set; }
+        public GameModes GameMode { get; set; }
+        public List<PlayerModel> Players { get; set; }
+        public Playlist Playlist { get; set; }
+    }
+}

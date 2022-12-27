@@ -6,18 +6,19 @@ using Your.Melody.Library.Models;
 
 namespace Your.Melody.Library.Helpers
 {
-    public class SongsDataHelper : ISongsDataHelper
+    public class SongsDataHelperYouTube : ISongsDataHelper
     {
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public SongsDataHelper(IMapper mapper, IConfiguration configuration)
+        public SongsDataHelperYouTube(IMapper mapper, IConfiguration configuration)
         {
             _mapper = mapper;
             _configuration = configuration;
         }
-        public async Task<PlaylistModel> GetPlaylist(string playlistId)
+        public async Task<PlaylistModel> GetPlaylist(string url)
         {
+            var playlistId = seperatingPlaylistFromUrl(url);
             var apiKey = _configuration["ApiKey"];
             HttpClient httpClient = new HttpClient();
             var valResp = await httpClient.GetFromJsonAsync<PlaylistYtModel>($"https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails%2Cid%2Csnippet&" +
@@ -30,7 +31,7 @@ namespace Your.Melody.Library.Helpers
         {
             return _mapper.Map<PlaylistModel>(playlistYtModel);
         }
-        public void SeperatingTitleAndArtist(ref SongDataModel sdm)
+        private void SeperatingTitleAndArtist(ref SongDataModel sdm)
         {
             var artist = Regex.Split(sdm.Title, " - ");
             if (artist is null || artist.Length == 1)
@@ -38,6 +39,11 @@ namespace Your.Melody.Library.Helpers
             var title = Regex.Split(artist[1], " [([{]");
             sdm.Title = title.FirstOrDefault() ?? "";
             sdm.Artist = artist.FirstOrDefault() ?? "";
+        }
+        private async Task<string> seperatingPlaylistFromUrl(string url)
+        {
+            var data = Regex.Match(url, "(?<=list=)([a-zA-Z0-9])\\w+").Value;
+            return data;
         }
     }
 }

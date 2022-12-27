@@ -7,8 +7,6 @@
         public class SnippetModel
         {
             public string title { get; set; }
-            //public string description { get; set; }
-            //public string channelTitle { get; set; }
         }
         public class ContentDetailsModel
         {
