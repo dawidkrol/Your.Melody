@@ -2,6 +2,6 @@
 {
     public class PlaylistYtModel
     {
-        public List<SongModel> items { get; set; }
+        public List<SongModel> items { get; set; } = new List<SongModel>();
     }
 }
