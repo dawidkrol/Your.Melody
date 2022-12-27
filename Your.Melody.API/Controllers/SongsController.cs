@@ -28,8 +28,7 @@ namespace Your.Melody.API.Controllers
         [HttpGet("GetSongs")]
         public async Task<PlaylistModel> GetSongs([FromQuery] string playlistUrl)
         {
-            var data = await _songsDataHelper.SeperatingPlaylistFromUrl(playlistUrl);
-            return _mapper.Map<PlaylistModel>(await _songsDataHelper.GetPlaylist(data));
+            return _mapper.Map<PlaylistModel>(await _songsDataHelper.GetPlaylist(playlistUrl));
         }
         /// <summary>
         /// Editing Title, Artist, SecToStart values for playlist
