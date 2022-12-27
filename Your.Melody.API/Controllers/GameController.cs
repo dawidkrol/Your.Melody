@@ -73,7 +73,7 @@ namespace Your.Melody.API.Controllers
             return _mapper.Map<Song>(await _gameHelper.GetNextSong(gameId));
         }
         /// <summary>
-        /// User Game Result
+        /// User Game Responce
         /// </summary>
         /// <param name="gameId">Game id</param>
         /// <param name="songId">Played song id</param><
