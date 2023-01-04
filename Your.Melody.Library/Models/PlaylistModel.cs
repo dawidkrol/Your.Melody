@@ -2,6 +2,6 @@
 {
     public class PlaylistModel
     {
-        public List<SongDataModel> Songs { get; set; }
+        public List<SongDataModel> Songs { get; set; } = new List<SongDataModel>();
     }
 }

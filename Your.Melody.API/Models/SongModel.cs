@@ -7,6 +7,8 @@
     {
         public Guid SongId { get; set; }
         public string VideoId { get; set; }
+        public string VideoUrl { get; set; }
+        public string AudioUrl { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
         public int SecToStart { get; set; }

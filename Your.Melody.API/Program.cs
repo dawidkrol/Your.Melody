@@ -6,6 +6,7 @@ using Your.Melody.API.Models;
 using Your.Melody.Library.Data;
 using Your.Melody.Library.Helpers;
 using Your.Melody.Library.Models;
+using YoutubeExplode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,9 +53,10 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
-builder.Services.AddScoped<ISongsDataHelper, SongsDataHelper>();
+builder.Services.AddScoped<ISongsDataHelper, SongsDataHelperYouTubeExplode>();
 builder.Services.AddScoped<IGameData, GameData>();
 builder.Services.AddScoped<GameHelper>();
+builder.Services.AddScoped<YoutubeClient>();
 
 var app = builder.Build();
 
