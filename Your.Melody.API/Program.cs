@@ -55,7 +55,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddScoped<ISongsDataHelper, SongsDataHelperYouTubeExplode>();
 builder.Services.AddScoped<IGameData, GameData>();
-builder.Services.AddScoped<GameHelper>();
+builder.Services.AddScoped<IGameHelper, GameHelper>();
 builder.Services.AddScoped<YoutubeClient>();
 
 var app = builder.Build();
