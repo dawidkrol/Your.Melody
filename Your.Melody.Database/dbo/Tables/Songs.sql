@@ -7,5 +7,6 @@
     [AudioUrl] NVARCHAR(255) NOT NULL,
     [PlaylistId] UNIQUEIDENTIFIER NOT NULL, 
     [SecToStart] INT NOT NULL DEFAULT 0, 
-    [IsActive] BIT NOT NULL DEFAULT 1
+    [IsActive] BIT NOT NULL DEFAULT 1, 
+    CONSTRAINT [FK_Songs_ToPlaylist] FOREIGN KEY (PlaylistId) REFERENCES Playlists(Id)
 )

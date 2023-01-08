@@ -62,13 +62,12 @@
     <Folder Include="dbo\Views" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Playlists.sql" />
-    <Build Include="dbo\Tables\ApprovedPlaylists.sql" />
     <Build Include="dbo\Tables\GameModes.sql" />
     <Build Include="dbo\Tables\Players.sql" />
     <Build Include="dbo\Tables\Users.sql" />
     <Build Include="dbo\Tables\Songs.sql" />
     <Build Include="dbo\Tables\Games.sql" />
     <Build Include="dbo\Tables\Answers.sql" />
+    <Build Include="dbo\Tables\Playlists.sql" />
   </ItemGroup>
 </Project>

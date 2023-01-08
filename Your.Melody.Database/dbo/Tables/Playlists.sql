@@ -1,6 +1,11 @@
-﻿CREATE TABLE [dbo].[Playlist]
+﻿CREATE TABLE [dbo].[Playlists]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [URI] NVARCHAR(255) NOT NULL, 
-    [IsActive] BIT NOT NULL
+    [URI] NVARCHAR(MAX) NOT NULL, 
+    [Name] NVARCHAR(50) NOT NULL, 
+    [Description] NVARCHAR(MAX) NULL, 
+    [Likes] INT NOT NULL DEFAULT 0, 
+    [Dislikes] INT NOT NULL DEFAULT 0, 
+    [IsActive] BIT NOT NULL DEFAULT 1,
+    [IsApproved] BIT NOT NULL DEFAULT 0,
 )
