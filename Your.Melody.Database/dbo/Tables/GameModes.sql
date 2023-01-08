@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[GameModes]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(25) NOT NULL
+)
