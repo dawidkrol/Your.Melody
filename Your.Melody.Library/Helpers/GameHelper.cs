@@ -37,6 +37,7 @@ namespace Your.Melody.Library.Helpers
         {
             var game = await _gameData.GetGame(gameId);
             var s = game.Playlist.Songs.Single(x => x.SongId == songId);
+            //TODO DATABASE
             s.Points = await _pointsCounter.CountingPointsAsync(s, titleByUser, artistByUser, secWhenUserResponce);
             s.Player.Points += s.Points;
             s.WasPlayed = true;

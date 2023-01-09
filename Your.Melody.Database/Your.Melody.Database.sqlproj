@@ -73,6 +73,9 @@
     <Build Include="dbo\Stored Procedures\spPlayer_Add.sql" />
     <Build Include="dbo\Stored Procedures\spSong_Add.sql" />
     <Build Include="dbo\Stored Procedures\spPlaylist_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_GetByGameId.sql" />
+    <Build Include="dbo\Stored Procedures\spSong_GetByPlaylistId.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_GetByGameId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Your.Melody.Database.publish.xml" />

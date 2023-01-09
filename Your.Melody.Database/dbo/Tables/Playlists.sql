@@ -1,11 +1,14 @@
 ﻿CREATE TABLE [dbo].[Playlists]
 (
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,  
+    [GameId] UNIQUEIDENTIFIER NULL,
     [URI] NVARCHAR(MAX) NULL, 
     [Name] NVARCHAR(50) NULL, 
     [Description] NVARCHAR(MAX) NULL, 
     [Likes] INT NOT NULL DEFAULT 0, 
     [Dislikes] INT NOT NULL DEFAULT 0, 
     [IsActive] BIT NOT NULL DEFAULT 1,
-    [IsApproved] BIT NOT NULL DEFAULT 0,
+    [IsApproved] BIT NOT NULL DEFAULT 0, 
+    [WasPlayed] BIT NOT NULL DEFAULT 0, 
+    CONSTRAINT [FK_Playlists_ToGame] FOREIGN KEY (GameId) REFERENCES [dbo].[Games](Id),
 )

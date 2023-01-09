@@ -43,15 +43,15 @@ namespace Your.Melody.API.Controllers
             _game.Id = Guid.NewGuid();
             _game.Playlist.Id = _game.Id;
             var g = _mapper.Map<Library.Models.GameModel>(_game);
+            //Add game
+            await _gameData.AddGame(g);
             //Add playlist
-            await _playlistData.AddPlaylist(g.Playlist);
+            await _playlistData.AddPlaylist(g.Playlist, _game.Id);
             //Add songs to playlist
             foreach (var song in g.Playlist.Songs)
             {
                 await _songData.AddSongToPlaylist(song, g.Playlist.Id);
             }
-            //Add game
-            await _gameData.AddGame(g);
 
             return _game.Id;
         }

@@ -4,6 +4,6 @@ namespace Your.Melody.Library.Data
 {
     public interface IPlaylistData
     {
-        Task AddPlaylist(Playlist playlist);
+        Task AddPlaylist(Playlist playlist, Guid gameId);
     }
 }

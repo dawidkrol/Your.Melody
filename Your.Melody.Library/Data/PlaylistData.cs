@@ -11,12 +11,13 @@ namespace Your.Melody.Library.Data
         {
             _sqlDataAccess = sqlDataAccess;
         }
-        public async Task AddPlaylist(Playlist playlist)
+        public async Task AddPlaylist(Playlist playlist, Guid gameId)
         {
             await _sqlDataAccess.SaveDataAsync<object>("spPlaylist_Add",
                 new
                 {
-                    @Id = playlist.Id
+                    Id = playlist.Id,
+                    GameId = gameId
                 });
         }
     }
