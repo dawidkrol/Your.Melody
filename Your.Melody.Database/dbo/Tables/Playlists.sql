@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Playlists]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [URI] NVARCHAR(MAX) NOT NULL, 
-    [Name] NVARCHAR(50) NOT NULL, 
+    [URI] NVARCHAR(MAX) NULL, 
+    [Name] NVARCHAR(50) NULL, 
     [Description] NVARCHAR(MAX) NULL, 
     [Likes] INT NOT NULL DEFAULT 0, 
     [Dislikes] INT NOT NULL DEFAULT 0, 

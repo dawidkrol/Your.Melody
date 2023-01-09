@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Your.Melody.Library.Data;
-using Your.Melody.Library.Helpers;
+﻿using Your.Melody.Library.Helpers;
 using Your.Melody.Library.Models;
 
 namespace Your.Melody.UTests.Library.Helpers
 {
-    public class GameHelperTest
+    public class PointsCounterTest
     {
-        IGameHelper _gameHelper;
-        public GameHelperTest()
+        IPointsCounter _gameHelper;
+
+        public PointsCounterTest()
         {
-            IGameData gameData = new GameData();
-            _gameHelper = new GameHelper(gameData);
+            _gameHelper = new PointsCounter();
         }
         public static IEnumerable<object[]> DataCountingPointsSecoundsAsyncTest =>
         new List<object[]>

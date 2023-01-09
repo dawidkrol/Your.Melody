@@ -14,15 +14,20 @@ namespace Your.Melody.API.Controllers
         private readonly ISongsDataHelper _songsDataHelper;
         private readonly IMapper _mapper;
         private readonly IGameData _gameData;
-        private readonly GameHelper _gameHelper;
+        private readonly IGameHelper _gameHelper;
+        private readonly ISongData _songData;
+        private readonly IPlaylistData _playlistData;
 
         public GameController(ISongsDataHelper songsDataHelper, IMapper mapper,
-            IGameData gameData, GameHelper gameHelper)
+            IGameData gameData, IGameHelper gameHelper,
+            ISongData songData, IPlaylistData playlistData)
         {
             this._songsDataHelper = songsDataHelper;
             _mapper = mapper;
             _gameData = gameData;
             _gameHelper = gameHelper;
+            _songData = songData;
+            _playlistData = playlistData;
         }
         /// <summary>
         /// Checking new playlist for game
@@ -36,8 +41,17 @@ namespace Your.Melody.API.Controllers
             _game.GameMode = mode;
             _game.Playlist = _mapper.Map<Playlist>(model);
             _game.Id = Guid.NewGuid();
-
-            _gameData.AddGame(_mapper.Map<Library.Models.GameModel>(_game));
+            _game.Playlist.Id = _game.Id;
+            var g = _mapper.Map<Library.Models.GameModel>(_game);
+            //Add playlist
+            await _playlistData.AddPlaylist(g.Playlist);
+            //Add songs to playlist
+            foreach (var song in g.Playlist.Songs)
+            {
+                await _songData.AddSongToPlaylist(song, g.Playlist.Id);
+            }
+            //Add game
+            await _gameData.AddGame(g);
 
             return _game.Id;
         }
@@ -60,7 +74,7 @@ namespace Your.Melody.API.Controllers
         [HttpGet("InformationAboutGame")]
         public async Task<Game> InformationAboutGame(Guid gameId)
         {
-            return GetGame(gameId);
+            return await GetGame(gameId);
         }
         /// <summary>
         /// Getting the song to be used for the game next
@@ -96,9 +110,9 @@ namespace Your.Melody.API.Controllers
             _gameData.DeleteGame(gameId);
         }
 
-        private Game GetGame(Guid gameId)
+        private async Task<Game> GetGame(Guid gameId)
         {
-            return _mapper.Map<Game>(_gameData.GetGame(gameId));
+            return _mapper.Map<Game>(await _gameData.GetGame(gameId));
         }
     }
 }

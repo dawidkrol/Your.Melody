@@ -1,7 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spGame_Add]
 	@Id uniqueidentifier,
-	@GameMode int
+	@GameMode int,
+	@PlaylistId uniqueidentifier
 AS
-	INSERT INTO [dbo].[Games](Id,GameModeId) VALUES(@Id,@GameMode);
+	INSERT INTO [dbo].[Games](Id,GameModeId,PlaylistId) VALUES(@Id,@GameMode,@PlaylistId);
 GO;
 

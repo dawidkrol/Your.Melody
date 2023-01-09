@@ -1,32 +1,40 @@
-﻿using Your.Melody.Library.Models;
+﻿using Your.Melody.Library.DbAccess;
+using Your.Melody.Library.Models;
 
 namespace Your.Melody.Library.Data
 {
     public class GameData : IGameData
     {
-        public static List<GameModel> _games = new();
-        public IEnumerable<GameModel> GetGames()
+        private readonly ISqlDataAccess _sqlDataAccess;
+
+        public GameData(ISqlDataAccess sqlDataAccess)
         {
-            return _games;
+            _sqlDataAccess = sqlDataAccess;
         }
-        public GameModel GetGame(Guid gameId)
+        public async Task<IEnumerable<GameModel>> GetGames()
         {
-            return _games.FirstOrDefault(x => x.Id == gameId);
+            return await _sqlDataAccess.LoadDataAsync<GameModel,object>("spGame_GetAll", new { });
         }
-        public void AddGame(GameModel newGame)
+        public async Task<GameModel> GetGame(Guid gameId)
         {
-            _games.Add(newGame);
+            return (await _sqlDataAccess.LoadDataAsync<GameModel, object>("spGame_GetById", new { Id = gameId })).FirstOrDefault();
         }
-        public void DeleteGame(Guid gameId)
+        public async Task AddGame(GameModel newGame)
         {
-            _games.Remove(GetGame(gameId));
+            await _sqlDataAccess.SaveDataAsync<object>("spGame_Add", new 
+            {
+                Id = newGame.Id,
+                GameMode = newGame.GameMode,
+                PlaylistId = newGame.Playlist.Id
+            });
         }
-        public void EditGame(GameModel gameModel)
+        public async Task DeleteGame(Guid gameId)
         {
-            var game = GetGame(gameModel.Id);
-            game.Playlist = gameModel.Playlist;
-            game.Players = gameModel.Players;
-            game.GameMode = gameModel.GameMode;
+            //TODO
+        }
+        public async Task EditGame(GameModel gameModel)
+        {
+            //TODO
         }
     }
 }
