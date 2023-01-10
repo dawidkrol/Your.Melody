@@ -56,6 +56,7 @@ builder.Services.AddScoped<IGameData, GameData>();
 builder.Services.AddScoped<IPlayerData, PlayerData>();
 builder.Services.AddScoped<IPlaylistData, PlaylistData>();
 builder.Services.AddScoped<ISongData, SongData>();
+builder.Services.AddScoped<IAnswerData, AnswerData>();
 builder.Services.AddScoped<IGameHelper, GameHelper>();
 builder.Services.AddScoped<IPointsCounter, PointsCounter>();
 builder.Services.AddScoped<ISqlDataAccess, SqlDataAccess>();

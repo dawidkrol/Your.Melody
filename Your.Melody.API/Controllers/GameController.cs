@@ -107,7 +107,7 @@ namespace Your.Melody.API.Controllers
         [HttpDelete("DeleteGame/{gameId}")]
         public async Task DeleteGame(Guid gameId)
         {
-            _gameData.DeleteGame(gameId);
+            await _gameData.DeleteGame(gameId);
         }
 
         private async Task<Game> GetGame(Guid gameId)

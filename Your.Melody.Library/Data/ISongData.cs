@@ -5,5 +5,6 @@ namespace Your.Melody.Library.Data
     public interface ISongData
     {
         Task AddSongToPlaylist(Song song, Guid playlistId);
+        Task SetSongAsPlayed(Guid songId);
     }
 }

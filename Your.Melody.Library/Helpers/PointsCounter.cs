@@ -9,16 +9,16 @@ namespace Your.Melody.Library.Helpers
 {
     public class PointsCounter : IPointsCounter
     {
-        public async Task<double> CountingPointsAsync(Song song, string titleByUser, string artistByUser, double secWhenUserResponce)
+        public async Task<float> CountingPointsAsync(Song song, string titleByUser, string artistByUser, float secWhenUserResponce)
         {
             //Max 100 pts.
-            double result = 0;
+            float result = 0;
             result += 50 * (await textEquality(titleByUser, song.Title));
             result += 50 * (await textEquality(artistByUser, song.Artist));
             result /= 1 + (secWhenUserResponce / 15);
             return result;
         }
-        private async Task<double> textEquality(string a, string b)
+        private async Task<float> textEquality(string a, string b)
         {
             a = await normalizingString(a);
             b = await normalizingString(b);
@@ -28,7 +28,7 @@ namespace Your.Melody.Library.Helpers
             {
                 return 0;
             }
-            double maxLen = a.Length > b.Length ? a.Length : b.Length;
+            float maxLen = a.Length > b.Length ? a.Length : b.Length;
             int minLen = a.Length < b.Length ? a.Length : b.Length;
             int sameCharAtIndex = 0;
             for (int i = 0; i < minLen; i++)

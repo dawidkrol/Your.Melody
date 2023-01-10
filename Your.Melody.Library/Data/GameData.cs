@@ -23,6 +23,10 @@ namespace Your.Melody.Library.Data
             data.Players = (await _sqlDataAccess.LoadDataAsync<PlayerModel, object>("[dbo].[spPlayer_GetByGameId]", new { GameId = gameId })).ToList();
             data.Playlist = (await _sqlDataAccess.LoadDataAsync<Playlist, object>("[dbo].[spPlaylist_GetByGameId]", new { GameId = gameId })).Single();
             data.Playlist.Songs = (await _sqlDataAccess.LoadDataAsync<Song, object>("[dbo].[spSong_GetByPlaylistId]", new { PlaylistId = data.Playlist.Id })).ToList();
+            foreach (var song in data.Playlist.Songs)
+            {
+                song.Player = (await _sqlDataAccess.LoadDataAsync<PlayerModel, object>("[dbo].[spPlayer_GetBySongId]", new { songId = song.Id })).FirstOrDefault();
+            }
 
             return data;
         }

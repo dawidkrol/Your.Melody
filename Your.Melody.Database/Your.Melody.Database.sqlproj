@@ -76,6 +76,11 @@
     <Build Include="dbo\Stored Procedures\spPlaylist_GetByGameId.sql" />
     <Build Include="dbo\Stored Procedures\spSong_GetByPlaylistId.sql" />
     <Build Include="dbo\Stored Procedures\spPlayer_GetByGameId.sql" />
+    <Build Include="dbo\Stored Procedures\spAnswers_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_AddPoints.sql" />
+    <Build Include="dbo\Stored Procedures\spSong_SetAsPlayed.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_GetBySongId.sql" />
+    <Build Include="dbo\Stored Procedures\spAnswers_AddPoints.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Your.Melody.Database.publish.xml" />

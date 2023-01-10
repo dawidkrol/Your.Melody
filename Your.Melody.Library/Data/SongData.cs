@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Your.Melody.Library.DbAccess;
 using Your.Melody.Library.Models;
+using YoutubeExplode.Playlists;
 
 namespace Your.Melody.Library.Data
 {
@@ -18,13 +19,21 @@ namespace Your.Melody.Library.Data
             await _sqlDataAccess.SaveDataAsync<object>("spSong_Add",
                 new
                 {
-                    Id = song.SongId,
+                    Id = song.Id,
                     Title = song.Title,
                     Artist = song.Artist,
                     VideoUrl = song.VideoUrl,
                     AudioUrl = song.AudioUrl,
                     PlaylistId = playlistId,
                     SecToStart = song.SecToStart
+                });
+        }
+        public async Task SetSongAsPlayed(Guid songId)
+        {
+            await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spSong_SetAsPlayed]",
+                new
+                {
+                    songId = songId
                 });
         }
     }

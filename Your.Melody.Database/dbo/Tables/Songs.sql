@@ -8,5 +8,6 @@
     [PlaylistId] UNIQUEIDENTIFIER NOT NULL, 
     [SecToStart] INT NOT NULL DEFAULT 0, 
     [IsActive] BIT NOT NULL DEFAULT 1, 
+    [WasPlayed] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [FK_Songs_ToPlaylist] FOREIGN KEY (PlaylistId) REFERENCES Playlists(Id)
 )
