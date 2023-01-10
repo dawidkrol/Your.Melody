@@ -31,5 +31,22 @@ namespace Your.Melody.Library.Data
                     @points = points
                 });
         }
+        public async Task EditPlayer(Guid playerId, string newName)
+        {
+            await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spPlayer_Edit]",
+                new
+                {
+                    @playerId = playerId,
+                    @newName = newName
+                });
+        }
+        public async Task DeletePlayer(Guid playerId)
+        {
+            await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spPlayer_Delete]",
+                new
+                {
+                    @playerId = playerId
+                });
+        }
     }
 }

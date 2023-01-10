@@ -66,9 +66,9 @@ namespace Your.Melody.API.Controllers
         /// <param name="gameId">game id</param>
         /// <param name="name">new name</param>
         [HttpPut("EditPlayer")]
-        public async Task EditPlayer(Guid playerId, Guid gameId, string name)
+        public async Task EditPlayer(Guid playerId, string name)
         {
-            (await _gameData.GetGame(gameId)).Players.Single(x => x.Id == playerId).Name = name;
+            await _playerData.EditPlayer(playerId, name);
         }
 
         /// <summary>
@@ -77,11 +77,9 @@ namespace Your.Melody.API.Controllers
         /// <param name="playerId">Player id</param>
         /// <param name="gameId">game id</param>
         [HttpDelete("DeletePlayer")]
-        public async Task DeletePlayer(Guid playerId, Guid gameId)
+        public async Task DeletePlayer(Guid playerId)
         {
-            //TODO
-            var player = (await _gameData.GetGame(gameId)).Players.Single(x => x.Id == playerId);
-            (await _gameData.GetGame(gameId)).Players.Remove(player);
+            await _playerData.DeletePlayer(playerId);
         }
 
         private async Task<Game> GetGame(Guid gameId)

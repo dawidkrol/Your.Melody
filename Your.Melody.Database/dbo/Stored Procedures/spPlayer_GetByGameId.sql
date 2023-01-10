@@ -3,5 +3,5 @@
 AS
 	SELECT *
 	FROM [dbo].[Players] p
-	WHERE @GameId = p.GameId
+	WHERE @GameId = p.GameId AND [IsActive] = 1
 GO;

@@ -6,5 +6,7 @@ namespace Your.Melody.Library.Data
     {
         Task AddPlayer(PlayerModel model);
         Task AddPoints(Guid playerId, float points);
+        Task DeletePlayer(Guid playerId);
+        Task EditPlayer(Guid playerId, string newName);
     }
 }
