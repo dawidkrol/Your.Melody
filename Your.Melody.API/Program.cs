@@ -55,16 +55,21 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
+builder.Services.AddScoped<IPointsCounter, PointsCounter>();
+builder.Services.AddScoped<YoutubeClient>();
+//Helpers
+builder.Services.AddScoped<IApprovedPlaylistHelper, ApprovedPlaylistHelper>();
+builder.Services.AddScoped<IGameHelper, GameHelper>();
+builder.Services.AddScoped<IGameManagerHelper, GameManagerHelper>();
 builder.Services.AddScoped<ISongsDataHelper, SongsDataHelperYouTubeExplode>();
+builder.Services.AddScoped<IPlayerHelper, PlayerHelper>();
+//Data
 builder.Services.AddScoped<IGameData, GameData>();
 builder.Services.AddScoped<IPlayerData, PlayerData>();
 builder.Services.AddScoped<IPlaylistData, PlaylistData>();
 builder.Services.AddScoped<ISongData, SongData>();
 builder.Services.AddScoped<IAnswerData, AnswerData>();
-builder.Services.AddScoped<IGameHelper, GameHelper>();
-builder.Services.AddScoped<IPointsCounter, PointsCounter>();
 builder.Services.AddScoped<ISqlDataAccess, SqlDataAccess>();
-builder.Services.AddScoped<YoutubeClient>();
 
 var app = builder.Build();
 

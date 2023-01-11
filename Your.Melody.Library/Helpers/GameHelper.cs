@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using AutoMapper;
 using Your.Melody.Library.Data;
 using Your.Melody.Library.Models;
 
@@ -6,56 +6,85 @@ namespace Your.Melody.Library.Helpers
 {
     public class GameHelper : IGameHelper
     {
+        private readonly IMapper _mapper;
         private readonly IGameData _gameData;
-        private readonly IPointsCounter _pointsCounter;
-        private readonly IPlayerData _playerData;
+        private readonly IPlaylistData _playlistData;
         private readonly ISongData _songData;
-        private readonly IAnswerData _answerData;
+        private readonly IGameManagerHelper _gameManagerHelper;
 
-        public GameHelper(IGameData gameData, IPointsCounter pointsCounter,
-            IPlayerData playerData, ISongData songData, IAnswerData answerData)
+        public GameHelper(IMapper mapper, IGameData gameData, IPlaylistData playlistData,
+            ISongData songData, IGameManagerHelper gameManagerHelper)
         {
+            _mapper = mapper;
             _gameData = gameData;
-            _pointsCounter = pointsCounter;
-            _playerData = playerData;
+            _playlistData = playlistData;
             _songData = songData;
-            _answerData = answerData;
-        }
-        public async Task<Song> GetNextSong(Guid gameId)
-        {
-            var game = await _gameData.GetGame(gameId);
-            var unplayedSongs = game.Playlist.Songs.Where(x => x.WasPlayed == false).ToList();
-            var playersFromLessRounds = game.Players.OrderBy(x => x.Rounds).ToList();
-
-            if (unplayedSongs.Count == 0 || playersFromLessRounds.Count == 0)
-            {
-                throw new Exception("There are not players or more unplayed songs");
-            }
-            if(unplayedSongs.Count < game.Players.Where(x => x.Rounds == playersFromLessRounds[0].Rounds).Count())
-            {
-                throw new Exception("There are not enough songs to play the next round");
-            }
-
-            int randNumb = new Random().Next(0, unplayedSongs.Count());
-            var toPlay = unplayedSongs[randNumb];
-            var player = playersFromLessRounds[0];
-            toPlay.Player = playersFromLessRounds[0];
-            await _answerData.AddAnswer(game.Id, player.Id, toPlay.Id);
-            player.Rounds++;
-
-            return toPlay;
+            _gameManagerHelper = gameManagerHelper;
         }
 
-        public async Task PlayerResponce(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
+        public async Task<Guid> CreateGameNewPlaylist(Playlist model, GameModes mode)
         {
-            var game = await _gameData.GetGame(gameId);
-            var s = game.Playlist.Songs.Single(x => x.Id == songId);
-            await _songData.SetSongAsPlayed(s.Id);
-            s.Points = await _pointsCounter.CountingPointsAsync(s, titleByUser, artistByUser, secWhenUserResponce);
-            await _playerData.AddPoints(s.Player.Id, s.Player.Points + s.Points);
-            await _answerData.AddPoints(gameId, s.Player.Id, songId, s.Points);
-            s.Player.Points += s.Points;
-            s.WasPlayed = true;
+            GameModel _game = new();
+            _game.GameMode = mode;
+            _game.Playlist = model;
+            _game.Id = Guid.NewGuid();
+            _game.Playlist.Id = _game.Id;
+            //Add game
+            await _gameData.AddGame(_game);
+            //Add playlist
+            await _playlistData.AddPlaylist(_game.Playlist, _game.Id);
+            //Add songs to playlist
+            foreach (var song in _game.Playlist.Songs)
+            {
+                await _songData.AddSongToPlaylist(song, _game.Playlist.Id);
+            }
+
+            return _game.Id;
+        }
+        public async Task<Guid> CreateGameApprovedPlaylist(Guid playlistId, GameModes mode)
+        {
+            GameModel _game = new();
+            _game.GameMode = mode;
+            var playlist = await _playlistData.GetApprovedPlaylistsById(playlistId);
+            _game.Playlist = _mapper.Map<Playlist>(playlist);
+            _game.Id = Guid.NewGuid();
+            _game.Playlist.Id = _game.Id;
+            //Add game
+            await _gameData.AddGame(_game);
+            //Add playlist
+            await _playlistData.AddPlaylist(_game.Playlist, _game.Id);
+            //Add songs to playlist
+            foreach (var song in _game.Playlist.Songs)
+            {
+                song.Id = Guid.NewGuid();
+                await _songData.AddSongToPlaylist(song, _game.Playlist.Id);
+            }
+
+            return _game.Id;
+        }
+        public async Task<GameModel> InformationAboutGame(Guid gameId)
+        {
+            return await GetGame(gameId);
+        }
+
+        public async Task<Song> NextSong(Guid gameId)
+        {
+            return await _gameManagerHelper.GetNextSong(gameId);
+        }
+
+        public async Task PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
+        {
+            await _gameManagerHelper.PlayerResponce(gameId, songId, titleByUser, artistByUser, secWhenUserResponce);
+        }
+
+        public async Task DeleteGame(Guid gameId)
+        {
+            await _gameData.DeleteGame(gameId);
+        }
+
+        public async Task<GameModel> GetGame(Guid gameId)
+        {
+            return _mapper.Map<GameModel>(await _gameData.GetGame(gameId));
         }
     }
 }

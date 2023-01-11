@@ -1,9 +1,7 @@
-﻿using AngleSharp.Dom;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Your.Melody.API.Models;
-using Your.Melody.Library.Data;
+using Your.Melody.Library.Helpers;
 
 namespace Your.Melody.API.Controllers
 {
@@ -11,15 +9,13 @@ namespace Your.Melody.API.Controllers
     [ApiController]
     public class ApprovedPlaylistControler : ControllerBase
     {
-        private readonly IPlaylistData _playlistData;
-        private readonly ISongData _songData;
         private readonly IMapper _mapper;
+        private readonly IApprovedPlaylistHelper _approvedPlaylistHelper;
 
-        public ApprovedPlaylistControler(IPlaylistData playlistData, ISongData songData, IMapper mapper)
+        public ApprovedPlaylistControler(IMapper mapper, IApprovedPlaylistHelper approvedPlaylistHelper)
         {
-            _playlistData = playlistData;
-            _songData = songData;
             _mapper = mapper;
+            _approvedPlaylistHelper = approvedPlaylistHelper;
         }
         /// <summary>
         /// Returns playlists that have been approved
@@ -27,7 +23,7 @@ namespace Your.Melody.API.Controllers
         [HttpGet("ApprovedPlaylists")]
         public async Task<IEnumerable<ApprovedPlaylist>> ApprovedPlaylists()
         {
-            return _mapper.Map<IEnumerable<ApprovedPlaylist>>(await _playlistData.GetApprovedPlaylists());
+            return _mapper.Map<IEnumerable<ApprovedPlaylist>>(await _approvedPlaylistHelper.ApprovedPlaylists());
         }
         /// <summary>
         /// Adding playlist to the approved
@@ -38,16 +34,8 @@ namespace Your.Melody.API.Controllers
         [HttpPost("AddPlaylistToApproved")]
         public async Task AddPlaylistToApproved(PlaylistModel playlist, string name, string description)
         {
-            var playll = _mapper.Map<Playlist>(playlist);
-            playll.Id = Guid.NewGuid();
-
-            //Add playlist
-            await _playlistData.AddApprovedPlaylist(playll.Id,"",name,description);
-            //Add songs to playlist
-            foreach (var song in playlist.Songs)
-            {
-                await _songData.AddSongToPlaylist(_mapper.Map<Library.Models.Song>(song), playll.Id);
-            }
+            await _approvedPlaylistHelper
+                .AddApprovedPlaylist(_mapper.Map<Your.Melody.Library.Models.PlaylistModel>(playlist), name, description);
         }
         /// <summary>
         /// Adding like to the playlist
@@ -56,7 +44,7 @@ namespace Your.Melody.API.Controllers
         [HttpPost("LikePlaylist")]
         public async Task LikePlaylist(Guid playlistId)
         {
-            await _playlistData.LikeApprovedPlaylist(playlistId);
+            await _approvedPlaylistHelper.LikePlaylist(playlistId);
         }
         /// <summary>
         /// Adding unlike to the playlist
@@ -65,7 +53,7 @@ namespace Your.Melody.API.Controllers
         [HttpPost("UnlikePlaylist")]
         public async Task UnlikePlaylist(Guid playlistId)
         {
-            await _playlistData.UnLikeApprovedPlaylist(playlistId);
+            await _approvedPlaylistHelper.UnlikePlaylist(playlistId);
         }
         /// <summary>
         /// Editing existing approved playlist
@@ -83,9 +71,9 @@ namespace Your.Melody.API.Controllers
         /// <param name="id">The id of the playlist you want to delete</param>
         //[Authorize]
         [HttpDelete("DeleteApprovedPlaylist/{id}")]
-        public async Task DeleteApprovedPlaylist([FromHeader]Guid id)
+        public async Task DeleteApprovedPlaylist([FromHeader] Guid id)
         {
-            await _playlistData.DeleteApprovedPlaylist(id);
+            await _approvedPlaylistHelper.DeleteApprovedPlaylist(id);
         }
     }
 }

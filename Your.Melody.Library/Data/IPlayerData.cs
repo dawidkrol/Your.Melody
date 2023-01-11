@@ -8,5 +8,6 @@ namespace Your.Melody.Library.Data
         Task AddPoints(Guid playerId, float points);
         Task DeletePlayer(Guid playerId);
         Task EditPlayer(Guid playerId, string newName);
+        Task<IEnumerable<PlayerModel>> GetPlayersByGameId(Guid gameId);
     }
 }
