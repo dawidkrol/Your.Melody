@@ -11,6 +11,6 @@ namespace Your.Melody.Library.Models
     {
         public bool WasPlayed { get; set; }
         public PlayerModel Player { get; set; }
-        public double Points { get; set; }
+        public float Points { get; set; }
     }
 }

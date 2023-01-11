@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Games]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    [GameModeId] INT NOT NULL, 
+    [IsEnded] BIT NOT NULL DEFAULT 0,
+    CONSTRAINT [FK_Games_ToGameMode] FOREIGN KEY ([GameModeId]) REFERENCES [GameModes]([Id])
+)

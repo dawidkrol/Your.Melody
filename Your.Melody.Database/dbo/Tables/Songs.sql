@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[Songs]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Title] NVARCHAR(255) NOT NULL, 
+    [Artist] NVARCHAR(255) NOT NULL, 
+    [VideoUrl] NVARCHAR(255) NOT NULL, 
+    [AudioUrl] NVARCHAR(255) NOT NULL,
+    [PlaylistId] UNIQUEIDENTIFIER NOT NULL, 
+    [SecToStart] INT NOT NULL DEFAULT 0, 
+    [IsActive] BIT NOT NULL DEFAULT 1, 
+    [WasPlayed] BIT NOT NULL DEFAULT 0, 
+    CONSTRAINT [FK_Songs_ToPlaylist] FOREIGN KEY (PlaylistId) REFERENCES Playlists(Id)
+)

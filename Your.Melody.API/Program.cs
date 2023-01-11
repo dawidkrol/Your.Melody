@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Your.Melody.API.Models;
 using Your.Melody.Library.Data;
+using Your.Melody.Library.DbAccess;
 using Your.Melody.Library.Helpers;
 using Your.Melody.Library.Models;
 using YoutubeExplode;
@@ -16,9 +17,6 @@ builder.Services.AddAutoMapper(config =>
 {
     config.CreateMap<PlaylistYtModel, Your.Melody.Library.Models.PlaylistModel>()
             .ForMember(x => x.Songs, opt => opt.MapFrom(u => u.items));
-    config.CreateMap<Your.Melody.Library.Models.SongModel, Your.Melody.Library.Models.SongDataModel>()
-            .ForMember(x => x.VideoId, opt => opt.MapFrom(u => u.contentDetails.videoId))
-            .ForMember(x => x.Title, opt => opt.MapFrom(u => u.snippet.title));
     config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.Playlist>();
     config.CreateMap<Your.Melody.API.Models.PlaylistModel, Your.Melody.API.Models.Playlist>();
     config.CreateMap<SongDataModel, Your.Melody.API.Models.Song>();
@@ -27,6 +25,10 @@ builder.Services.AddAutoMapper(config =>
     config.CreateMap<Your.Melody.API.Models.Playlist, Your.Melody.API.Models.PlaylistModel>();
     config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.PlaylistModel>();
     config.CreateMap<SongDataModel, Your.Melody.API.Models.SongModel>();
+    config.CreateMap<Your.Melody.Library.Models.ApprovedPlaylist, Your.Melody.API.Models.ApprovedPlaylist>();
+    config.CreateMap<Your.Melody.API.Models.ApprovedPlaylist, Your.Melody.Library.Models.ApprovedPlaylist>();
+    config.CreateMap<Your.Melody.API.Models.SongModel, Your.Melody.Library.Models.Song>();
+    config.CreateMap<Your.Melody.Library.Models.ApprovedPlaylist, Your.Melody.API.Models.Playlist>();
 
     // GameModel -> Game
     config.CreateMap<GameModel, Game>();
@@ -55,7 +57,13 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddScoped<ISongsDataHelper, SongsDataHelperYouTubeExplode>();
 builder.Services.AddScoped<IGameData, GameData>();
-builder.Services.AddScoped<GameHelper>();
+builder.Services.AddScoped<IPlayerData, PlayerData>();
+builder.Services.AddScoped<IPlaylistData, PlaylistData>();
+builder.Services.AddScoped<ISongData, SongData>();
+builder.Services.AddScoped<IAnswerData, AnswerData>();
+builder.Services.AddScoped<IGameHelper, GameHelper>();
+builder.Services.AddScoped<IPointsCounter, PointsCounter>();
+builder.Services.AddScoped<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddScoped<YoutubeClient>();
 
 var app = builder.Build();

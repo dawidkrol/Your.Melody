@@ -11,7 +11,7 @@ namespace Your.Melody.Library.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public Guid GameId { get; set; }
-        public double Points { get; set; }
+        public float Points { get; set; }
         public int Rounds { get; set; } = 0;
         public UserModel User { get; set; }
     }

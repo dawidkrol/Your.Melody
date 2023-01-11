@@ -4,10 +4,10 @@ namespace Your.Melody.Library.Data
 {
     public interface IGameData
     {
-        void AddGame(GameModel newGame);
-        void DeleteGame(Guid gameId);
-        void EditGame(GameModel gameModel);
-        GameModel GetGame(Guid gameId);
-        IEnumerable<GameModel> GetGames();
+        Task AddGame(GameModel newGame);
+        Task DeleteGame(Guid gameId);
+        Task EditGame(GameModel gameModel);
+        Task<GameModel> GetGame(Guid gameId);
+        Task<IEnumerable<GameModel>> GetGames();
     }
 }

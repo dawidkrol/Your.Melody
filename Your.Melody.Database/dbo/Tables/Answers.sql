@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Answers]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [GameId] UNIQUEIDENTIFIER NOT NULL, 
+    [SongId] UNIQUEIDENTIFIER NOT NULL, 
+    [Points] FLOAT NOT NULL, 
+    [PlayerId] UNIQUEIDENTIFIER NOT NULL, 
+    CONSTRAINT [FK_Answers_ToGame] FOREIGN KEY (GameId) REFERENCES [Games]([Id]), 
+    CONSTRAINT [FK_Answers_ToSong] FOREIGN KEY ([SongId]) REFERENCES [Songs]([Id]), 
+    CONSTRAINT [FK_Answers_ToPlayer] FOREIGN KEY ([PlayerId]) REFERENCES [Players]([Id])
+)

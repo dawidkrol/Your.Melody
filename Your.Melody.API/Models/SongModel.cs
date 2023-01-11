@@ -5,8 +5,7 @@
     /// </summary>
     public class SongModel
     {
-        public Guid SongId { get; set; }
-        public string VideoId { get; set; }
+        public Guid Id { get; set; }
         public string VideoUrl { get; set; }
         public string AudioUrl { get; set; }
         public string Title { get; set; }

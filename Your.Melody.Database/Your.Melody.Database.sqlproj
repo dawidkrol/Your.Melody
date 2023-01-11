@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Your.Melody.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{68dac76d-a435-41f6-b660-9a14d6455ead}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>Your.Melody.Database</RootNamespace>
+    <AssemblyName>Your.Melody.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Stored Procedures" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Views" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\GameModes.sql" />
+    <Build Include="dbo\Tables\Players.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\Songs.sql" />
+    <Build Include="dbo\Tables\Games.sql" />
+    <Build Include="dbo\Tables\Answers.sql" />
+    <Build Include="dbo\Tables\Playlists.sql" />
+    <Build Include="dbo\Stored Procedures\spGame_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spGame_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\spGame_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spSong_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_GetByGameId.sql" />
+    <Build Include="dbo\Stored Procedures\spSong_GetByPlaylistId.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_GetByGameId.sql" />
+    <Build Include="dbo\Stored Procedures\spAnswers_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_AddPoints.sql" />
+    <Build Include="dbo\Stored Procedures\spSong_SetAsPlayed.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_GetBySongId.sql" />
+    <Build Include="dbo\Stored Procedures\spAnswers_AddPoints.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_Edit.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_GetApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_LikeApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_UnLikeApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_DeleteApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_AddApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_GetApprovedById.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Your.Melody.Database.publish.xml" />
+  </ItemGroup>
+</Project>
