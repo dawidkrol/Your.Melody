@@ -39,7 +39,7 @@ namespace Your.Melody.UTests.Library.Helpers
 
         [Theory]
         [MemberData(nameof(DataCountingPointsSecoundsAsyncTest))]
-        public async void CountingPointsSecoundsAsyncTest(Song song, string titleByUser, string artistByUser, double secWhenUserResponce, double expected)
+        public async void CountingPointsSecoundsAsyncTest(Song song, string titleByUser, string artistByUser, float secWhenUserResponce, double expected)
         {
             var actual = await _gameHelper.CountingPointsAsync(song, titleByUser, artistByUser, secWhenUserResponce);
 
@@ -47,7 +47,7 @@ namespace Your.Melody.UTests.Library.Helpers
         }
         [Theory]
         [MemberData(nameof(DataCountingPointsTitleAsyncTest))]
-        public async void CountingPointsTitleAsyncTest(Song song, string titleByUser, string artistByUser, double secWhenUserResponce, double expected)
+        public async void CountingPointsTitleAsyncTest(Song song, string titleByUser, string artistByUser, float secWhenUserResponce, double expected)
         {
             var actual = await _gameHelper.CountingPointsAsync(song, titleByUser, artistByUser, secWhenUserResponce);
 
@@ -55,7 +55,7 @@ namespace Your.Melody.UTests.Library.Helpers
         }
         [Theory]
         [MemberData(nameof(DataCountingPointsArtistAsyncTest))]
-        public async void CountingPointsArtistAsyncTest(Song song, string titleByUser, string artistByUser, double secWhenUserResponce, double expected)
+        public async void CountingPointsArtistAsyncTest(Song song, string titleByUser, string artistByUser, float secWhenUserResponce, double expected)
         {
             var actual = await _gameHelper.CountingPointsAsync(song, titleByUser, artistByUser, secWhenUserResponce);
 

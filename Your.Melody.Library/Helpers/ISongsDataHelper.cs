@@ -4,6 +4,6 @@ namespace Your.Melody.Library.Helpers
 {
     public interface ISongsDataHelper
     {
-        Task<PlaylistModel> GetPlaylist(string playlistId);
+        Task<PlaylistModel> GetPlaylist(string url);
     }
 }
