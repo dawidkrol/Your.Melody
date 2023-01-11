@@ -1,6 +1,5 @@
 ﻿using Your.Melody.Library.DbAccess;
 using Your.Melody.Library.Models;
-using YoutubeExplode.Playlists;
 using Playlist = Your.Melody.Library.Models.Playlist;
 
 namespace Your.Melody.Library.Data
@@ -15,7 +14,7 @@ namespace Your.Melody.Library.Data
         }
         public async Task<IEnumerable<GameModel>> GetGames()
         {
-            return await _sqlDataAccess.LoadDataAsync<GameModel,object>("spGame_GetAll", new { });
+            return await _sqlDataAccess.LoadDataAsync<GameModel, object>("spGame_GetAll", new { });
         }
         public async Task<GameModel> GetGame(Guid gameId)
         {
@@ -32,7 +31,7 @@ namespace Your.Melody.Library.Data
         }
         public async Task AddGame(GameModel newGame)
         {
-            await _sqlDataAccess.SaveDataAsync<object>("spGame_Add", new 
+            await _sqlDataAccess.SaveDataAsync<object>("spGame_Add", new
             {
                 Id = newGame.Id,
                 GameMode = newGame.GameMode

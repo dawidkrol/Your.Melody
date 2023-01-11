@@ -1,6 +1,3 @@
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Your.Melody.API.Models;
 using Your.Melody.Library.Data;
@@ -40,7 +37,7 @@ builder.Services.AddAutoMapper(config =>
 
     //Game -> GameModel
     config.CreateMap<Game, GameModel>();
-    config.CreateMap<Your.Melody.API.Models.GameModes,Your.Melody.Library.Models.GameModes>();
+    config.CreateMap<Your.Melody.API.Models.GameModes, Your.Melody.Library.Models.GameModes>();
     config.CreateMap<Your.Melody.API.Models.Playlist, Your.Melody.Library.Models.Playlist>();
     config.CreateMap<Player, PlayerModel>();
     config.CreateMap<User, UserModel>();

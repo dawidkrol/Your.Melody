@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Your.Melody.Library.Data;
+﻿using Your.Melody.Library.Data;
 using Your.Melody.Library.Models;
 
 namespace Your.Melody.Library.Helpers
