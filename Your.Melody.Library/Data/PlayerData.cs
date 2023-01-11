@@ -11,6 +11,15 @@ namespace Your.Melody.Library.Data
         {
             _sqlDataAccess = sqlDataAccess;
         }
+
+        public async Task<IEnumerable<PlayerModel>> GetPlayersByGameId(Guid gameId)
+        {
+            return await _sqlDataAccess.LoadDataAsync<PlayerModel, object>("spPlayer_GetByGameId",
+                new
+                {
+                    gameId = gameId
+                });
+        }
         public async Task AddPlayer(PlayerModel model)
         {
             await _sqlDataAccess.SaveDataAsync<object>("spPlayer_Add",
@@ -27,8 +36,8 @@ namespace Your.Melody.Library.Data
             await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spPlayer_AddPoints]",
                 new
                 {
-                    @playerId = playerId,
-                    @points = points
+                    playerId = playerId,
+                    points = points
                 });
         }
         public async Task EditPlayer(Guid playerId, string newName)
@@ -36,8 +45,8 @@ namespace Your.Melody.Library.Data
             await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spPlayer_Edit]",
                 new
                 {
-                    @playerId = playerId,
-                    @newName = newName
+                    playerId = playerId,
+                    newName = newName
                 });
         }
         public async Task DeletePlayer(Guid playerId)
@@ -45,7 +54,7 @@ namespace Your.Melody.Library.Data
             await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spPlayer_Delete]",
                 new
                 {
-                    @playerId = playerId
+                    playerId = playerId
                 });
         }
     }

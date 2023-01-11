@@ -5,6 +5,6 @@
     /// </summary>
     public enum GameModes
     {
-        Single = 1,Party = 2,Multi = 3
+        Single = 1, Party = 2, Multi = 3
     }
 }

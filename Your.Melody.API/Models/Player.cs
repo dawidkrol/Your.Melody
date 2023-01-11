@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Your.Melody.API.Models
+﻿namespace Your.Melody.API.Models
 {
     /// <summary>
     /// Unique player in the game

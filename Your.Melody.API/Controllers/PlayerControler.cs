@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Your.Melody.API.Models;
-using Your.Melody.Library.Data;
-using Your.Melody.Library.Models;
-using GameModes = Your.Melody.API.Models.GameModes;
+using Your.Melody.Library.Helpers;
 
 namespace Your.Melody.API.Controllers
 {
@@ -11,15 +9,13 @@ namespace Your.Melody.API.Controllers
     [ApiController]
     public class PlayerControler : ControllerBase
     {
-        private readonly IGameData _gameData;
-        private readonly IPlayerData _playerData;
         private readonly IMapper _mapper;
+        private readonly IPlayerHelper _playerHelper;
 
-        public PlayerControler(IGameData gameData, IPlayerData playerData, IMapper mapper)
+        public PlayerControler(IMapper mapper, IPlayerHelper playerHelper)
         {
-            _gameData = gameData;
-            _playerData = playerData;
             _mapper = mapper;
+            _playerHelper = playerHelper;
         }
         /// <summary>
         /// Adding new player to the created game.
@@ -30,22 +26,7 @@ namespace Your.Melody.API.Controllers
         [HttpPost("AddNewPlayerToGame")]
         public async Task<Guid> AddNewPlayerToGame(Guid gameId, string playerNickname)
         {
-            var game = await GetGame(gameId);
-            if (game.GameMode == GameModes.Single && game.Players.Count > 0)
-            {
-                throw new Exception("Cannot add more than one player to singleplayer mode");
-            }
-            var player = new Player
-            {
-                Id = Guid.NewGuid(),
-                Name = playerNickname,
-                GameId = gameId,
-                Points = 0,
-                Rounds = 0,
-                User = null
-            };
-            await _playerData.AddPlayer(_mapper.Map<PlayerModel>(player));
-            return player.Id;
+            return await _playerHelper.AddNewPlayerToGame(gameId, playerNickname);
         }
 
         /// <summary>
@@ -54,9 +35,9 @@ namespace Your.Melody.API.Controllers
         /// <param name="gameId">Game id</param>
         /// <returns>Players from game</returns>
         [HttpGet("GetPlayers/{gameId}")]
-        public async Task<List<Player>> GetPlayers(Guid gameId)
+        public async Task<IEnumerable<Player>> GetPlayers(Guid gameId)
         {
-            return (await GetGame(gameId)).Players;
+            return _mapper.Map<IEnumerable<Player>>(await _playerHelper.GetPlayers(gameId));
         }
 
         /// <summary>
@@ -68,7 +49,7 @@ namespace Your.Melody.API.Controllers
         [HttpPut("EditPlayer")]
         public async Task EditPlayer(Guid playerId, string name)
         {
-            await _playerData.EditPlayer(playerId, name);
+            await _playerHelper.EditPlayer(playerId, name);
         }
 
         /// <summary>
@@ -79,12 +60,7 @@ namespace Your.Melody.API.Controllers
         [HttpDelete("DeletePlayer")]
         public async Task DeletePlayer(Guid playerId)
         {
-            await _playerData.DeletePlayer(playerId);
-        }
-
-        private async Task<Game> GetGame(Guid gameId)
-        {
-            return _mapper.Map<Game>(await _gameData.GetGame(gameId));
+            await _playerHelper.DeletePlayer(playerId);
         }
     }
 }

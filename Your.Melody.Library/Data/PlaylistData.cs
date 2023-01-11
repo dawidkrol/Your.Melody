@@ -1,8 +1,5 @@
-﻿using System.Xml.Linq;
-using System;
-using Your.Melody.Library.DbAccess;
+﻿using Your.Melody.Library.DbAccess;
 using Your.Melody.Library.Models;
-using YoutubeExplode.Playlists;
 using Playlist = Your.Melody.Library.Models.Playlist;
 
 namespace Your.Melody.Library.Data
@@ -27,7 +24,7 @@ namespace Your.Melody.Library.Data
         }
         public async Task<IEnumerable<ApprovedPlaylist>> GetApprovedPlaylists()
         {
-            var playlists = await _sqlDataAccess.LoadDataAsync<ApprovedPlaylist, object>("spPlaylist_GetApproved", new {} );
+            var playlists = await _sqlDataAccess.LoadDataAsync<ApprovedPlaylist, object>("spPlaylist_GetApproved", new { });
             foreach (var playlist in playlists)
             {
                 playlist.Songs = (await _sqlDataAccess.LoadDataAsync<Song, object>("[dbo].[spSong_GetByPlaylistId]", new { PlaylistId = playlist.Id })).ToList();
@@ -43,11 +40,12 @@ namespace Your.Melody.Library.Data
         }
         public async Task AddApprovedPlaylist(Guid Id, string URI, string name, string description = "")
         {
-            await _sqlDataAccess.SaveDataAsync<object>("spPlaylist_AddApproved", new {
-                @Id = Id,
-                @URI = URI,
-                @Name = name,
-                @Description = description
+            await _sqlDataAccess.SaveDataAsync<object>("spPlaylist_AddApproved", new
+            {
+                Id = Id,
+                URI = URI,
+                Name = name,
+                Description = description
             });
         }
         public async Task LikeApprovedPlaylist(Guid playlistId)

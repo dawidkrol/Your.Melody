@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Your.Melody.API.Models;
-using Your.Melody.Library.Data;
 using Your.Melody.Library.Helpers;
-using static HotChocolate.ErrorCodes;
 
 namespace Your.Melody.API.Controllers
 {
@@ -11,23 +9,13 @@ namespace Your.Melody.API.Controllers
     [ApiController]
     public class GameController : ControllerBase
     {
-        private readonly ISongsDataHelper _songsDataHelper;
         private readonly IMapper _mapper;
-        private readonly IGameData _gameData;
         private readonly IGameHelper _gameHelper;
-        private readonly ISongData _songData;
-        private readonly IPlaylistData _playlistData;
 
-        public GameController(ISongsDataHelper songsDataHelper, IMapper mapper,
-            IGameData gameData, IGameHelper gameHelper,
-            ISongData songData, IPlaylistData playlistData)
+        public GameController(IMapper mapper, IGameHelper gameHelper)
         {
-            this._songsDataHelper = songsDataHelper;
             _mapper = mapper;
-            _gameData = gameData;
             _gameHelper = gameHelper;
-            _songData = songData;
-            _playlistData = playlistData;
         }
         /// <summary>
         /// Checking new playlist for game
@@ -37,23 +25,8 @@ namespace Your.Melody.API.Controllers
         [HttpPost("CreateGameNewPlaylist")]
         public async Task<Guid> CreateGameNewPlaylist(PlaylistModel model, GameModes mode)
         {
-            Game _game = new();
-            _game.GameMode = mode;
-            _game.Playlist = _mapper.Map<Playlist>(model);
-            _game.Id = Guid.NewGuid();
-            _game.Playlist.Id = _game.Id;
-            var g = _mapper.Map<Library.Models.GameModel>(_game);
-            //Add game
-            await _gameData.AddGame(g);
-            //Add playlist
-            await _playlistData.AddPlaylist(g.Playlist, _game.Id);
-            //Add songs to playlist
-            foreach (var song in g.Playlist.Songs)
-            {
-                await _songData.AddSongToPlaylist(song, g.Playlist.Id);
-            }
-
-            return _game.Id;
+            return await _gameHelper.CreateGameNewPlaylist(_mapper.Map<Library.Models.Playlist>(model),
+                _mapper.Map<Library.Models.GameModes>(mode));
         }
         /// <summary>
         /// Creating new game with already approved playlist
@@ -64,25 +37,7 @@ namespace Your.Melody.API.Controllers
         [HttpPost("CreateGameApprovedPlaylist")]
         public async Task<Guid> CreateGameApprovedPlaylist(Guid playlistId, GameModes mode)
         {
-            Game _game = new();
-            _game.GameMode = mode;
-            var playlist = await _playlistData.GetApprovedPlaylistsById(playlistId);
-            _game.Playlist = _mapper.Map<Playlist>(playlist);
-            _game.Id = Guid.NewGuid();
-            _game.Playlist.Id = _game.Id;
-            var g = _mapper.Map<Library.Models.GameModel>(_game);
-            //Add game
-            await _gameData.AddGame(g);
-            //Add playlist
-            await _playlistData.AddPlaylist(g.Playlist, _game.Id);
-            //Add songs to playlist
-            foreach (var song in g.Playlist.Songs)
-            {
-                song.Id = Guid.NewGuid();
-                await _songData.AddSongToPlaylist(song, g.Playlist.Id);
-            }
-
-            return _game.Id;
+            return await _gameHelper.CreateGameApprovedPlaylist(playlistId, _mapper.Map<Library.Models.GameModes>(mode));
         }
         /// <summary>
         /// Returning informations about game
@@ -92,7 +47,7 @@ namespace Your.Melody.API.Controllers
         [HttpGet("InformationAboutGame")]
         public async Task<Game> InformationAboutGame(Guid gameId)
         {
-            return await GetGame(gameId);
+            return _mapper.Map<Game>(await _gameHelper.InformationAboutGame(gameId));
         }
         /// <summary>
         /// Getting the song to be used for the game next
@@ -102,7 +57,7 @@ namespace Your.Melody.API.Controllers
         [HttpGet("NextSong")]
         public async Task<Song> NextSong(Guid gameId)
         {
-            return _mapper.Map<Song>(await _gameHelper.GetNextSong(gameId));
+            return _mapper.Map<Song>(await _gameHelper.NextSong(gameId));
         }
         /// <summary>
         /// User Game Responce
@@ -115,7 +70,7 @@ namespace Your.Melody.API.Controllers
         [HttpPost("PlayerReply")]
         public async Task PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
         {
-            await _gameHelper.PlayerResponce(gameId,songId, titleByUser, artistByUser, secWhenUserResponce);
+            await _gameHelper.PlayerReply(gameId, songId, titleByUser, artistByUser, secWhenUserResponce);
         }
 
         /// <summary>
@@ -125,12 +80,8 @@ namespace Your.Melody.API.Controllers
         [HttpDelete("DeleteGame/{gameId}")]
         public async Task DeleteGame(Guid gameId)
         {
-            await _gameData.DeleteGame(gameId);
+            await _gameHelper.DeleteGame(gameId);
         }
 
-        private async Task<Game> GetGame(Guid gameId)
-        {
-            return _mapper.Map<Game>(await _gameData.GetGame(gameId));
-        }
     }
 }
