@@ -10,6 +10,6 @@ namespace Your.Melody.Library.Helpers
         Task<GameModel> InformationAboutGame(Guid gameId);
         Task<Song> NextSong(Guid gameId);
         Task<GameModel> GetGame(Guid gameId);
-        Task PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce);
+        Task<float> PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce);
     }
 }

@@ -72,9 +72,9 @@ namespace Your.Melody.Library.Helpers
             return await _gameManagerHelper.GetNextSong(gameId);
         }
 
-        public async Task PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
+        public async Task<float> PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
         {
-            await _gameManagerHelper.PlayerResponce(gameId, songId, titleByUser, artistByUser, secWhenUserResponce);
+            return await _gameManagerHelper.PlayerResponce(gameId, songId, titleByUser, artistByUser, secWhenUserResponce);
         }
 
         public async Task DeleteGame(Guid gameId)

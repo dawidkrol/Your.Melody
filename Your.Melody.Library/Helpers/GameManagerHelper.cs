@@ -45,7 +45,7 @@ namespace Your.Melody.Library.Helpers
             return toPlay;
         }
 
-        public async Task PlayerResponce(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
+        public async Task<float> PlayerResponce(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
         {
             var game = await _gameData.GetGame(gameId);
             var s = game.Playlist.Songs.Single(x => x.Id == songId);
@@ -55,6 +55,7 @@ namespace Your.Melody.Library.Helpers
             await _answerData.AddPoints(gameId, s.Player.Id, songId, s.Points);
             s.Player.Points += s.Points;
             s.WasPlayed = true;
+            return s.Points;
         }
     }
 }

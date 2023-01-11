@@ -68,9 +68,9 @@ namespace Your.Melody.API.Controllers
         /// <param name="artistByUser"></param>
         /// <param name="secWhenUserResponce"></param>
         [HttpPost("PlayerReply")]
-        public async Task PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
+        public async Task<float> PlayerReply(Guid gameId, Guid songId, string titleByUser, string artistByUser, int secWhenUserResponce)
         {
-            await _gameHelper.PlayerReply(gameId, songId, titleByUser, artistByUser, secWhenUserResponce);
+            return await _gameHelper.PlayerReply(gameId, songId, titleByUser, artistByUser, secWhenUserResponce);
         }
 
         /// <summary>

@@ -20,6 +20,7 @@ builder.Services.AddAutoMapper(config =>
     config.CreateMap<Your.Melody.API.Models.Song, Your.Melody.API.Models.SongModel>();
     config.CreateMap<Your.Melody.API.Models.SongModel, Your.Melody.API.Models.Song>();
     config.CreateMap<Your.Melody.API.Models.Playlist, Your.Melody.API.Models.PlaylistModel>();
+    config.CreateMap<Your.Melody.API.Models.PlaylistModel, Your.Melody.Library.Models.Playlist>();
     config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.PlaylistModel>();
     config.CreateMap<SongDataModel, Your.Melody.API.Models.SongModel>();
     config.CreateMap<Your.Melody.Library.Models.ApprovedPlaylist, Your.Melody.API.Models.ApprovedPlaylist>();
