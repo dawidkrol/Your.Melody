@@ -83,6 +83,12 @@
     <Build Include="dbo\Stored Procedures\spAnswers_AddPoints.sql" />
     <Build Include="dbo\Stored Procedures\spPlayer_Edit.sql" />
     <Build Include="dbo\Stored Procedures\spPlayer_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_GetApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_LikeApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_UnLikeApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_DeleteApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_AddApproved.sql" />
+    <Build Include="dbo\Stored Procedures\spPlaylist_GetApprovedById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Your.Melody.Database.publish.xml" />

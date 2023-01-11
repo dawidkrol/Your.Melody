@@ -7,7 +7,7 @@
     public class ApprovedPlaylist : Playlist
     {
         public Guid Id { get; set; }
-        public Uri Uri { get; set; }
+        public string Uri { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public List<SongModel> Songs { get; set; }

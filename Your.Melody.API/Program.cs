@@ -25,6 +25,10 @@ builder.Services.AddAutoMapper(config =>
     config.CreateMap<Your.Melody.API.Models.Playlist, Your.Melody.API.Models.PlaylistModel>();
     config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.PlaylistModel>();
     config.CreateMap<SongDataModel, Your.Melody.API.Models.SongModel>();
+    config.CreateMap<Your.Melody.Library.Models.ApprovedPlaylist, Your.Melody.API.Models.ApprovedPlaylist>();
+    config.CreateMap<Your.Melody.API.Models.ApprovedPlaylist, Your.Melody.Library.Models.ApprovedPlaylist>();
+    config.CreateMap<Your.Melody.API.Models.SongModel, Your.Melody.Library.Models.Song>();
+    config.CreateMap<Your.Melody.Library.Models.ApprovedPlaylist, Your.Melody.API.Models.Playlist>();
 
     // GameModel -> Game
     config.CreateMap<GameModel, Game>();

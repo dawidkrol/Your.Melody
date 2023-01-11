@@ -64,7 +64,25 @@ namespace Your.Melody.API.Controllers
         [HttpPost("CreateGameApprovedPlaylist")]
         public async Task<Guid> CreateGameApprovedPlaylist(Guid playlistId, GameModes mode)
         {
-            throw new NotImplementedException();
+            Game _game = new();
+            _game.GameMode = mode;
+            var playlist = await _playlistData.GetApprovedPlaylistsById(playlistId);
+            _game.Playlist = _mapper.Map<Playlist>(playlist);
+            _game.Id = Guid.NewGuid();
+            _game.Playlist.Id = _game.Id;
+            var g = _mapper.Map<Library.Models.GameModel>(_game);
+            //Add game
+            await _gameData.AddGame(g);
+            //Add playlist
+            await _playlistData.AddPlaylist(g.Playlist, _game.Id);
+            //Add songs to playlist
+            foreach (var song in g.Playlist.Songs)
+            {
+                song.Id = Guid.NewGuid();
+                await _songData.AddSongToPlaylist(song, g.Playlist.Id);
+            }
+
+            return _game.Id;
         }
         /// <summary>
         /// Returning informations about game
