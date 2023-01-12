@@ -12,8 +12,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(config =>
 {
-    config.CreateMap<PlaylistYtModel, Your.Melody.Library.Models.PlaylistModel>()
-            .ForMember(x => x.Songs, opt => opt.MapFrom(u => u.items));
+
     config.CreateMap<Your.Melody.Library.Models.PlaylistModel, Your.Melody.API.Models.Playlist>();
     config.CreateMap<Your.Melody.API.Models.PlaylistModel, Your.Melody.API.Models.Playlist>();
     config.CreateMap<SongDataModel, Your.Melody.API.Models.Song>();
