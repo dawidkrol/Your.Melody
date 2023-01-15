@@ -620,6 +620,17 @@ AS
 	UPDATE [dbo].[Players] SET Points = @points
 	WHERE Id = @playerId
 GO
+PRINT N'Creating Procedure [dbo].[spPlayer_AddRound]...';
+
+
+GO
+CREATE PROCEDURE [dbo].[spPlayer_AddRound]
+	@playerId uniqueidentifier,
+	@rounds int
+AS
+	UPDATE [dbo].[Players] SET Rounds = Rounds + @rounds
+	WHERE Id = @playerId
+GO
 PRINT N'Creating Procedure [dbo].[spPlayer_Delete]...';
 
 
@@ -809,7 +820,3 @@ PRINT N'Update complete.';
 
 
 GO
-
-INSERT INTO [dbo].[GameModes](Id,[Name]) VALUES(0,'Single')
-INSERT INTO [dbo].[GameModes](Id,[Name]) VALUES(1,'Party')
-INSERT INTO [dbo].[GameModes](Id,[Name]) VALUES(2,'Multi')
