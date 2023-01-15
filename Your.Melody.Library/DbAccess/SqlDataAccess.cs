@@ -14,28 +14,28 @@ namespace Your.Melody.Library.DbAccess
             _config = config;
         }
 
-        public async Task<IEnumerable<T>> LoadDataAsync<T, U>(string storedProcedure, U parameters, string connectionId = "")
+        public async Task<IEnumerable<T>> LoadDataAsync<T, U>(string storedProcedure, U parameters, string connectionId = "AzureDB")
         {
             using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
 
             return await connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<IEnumerable<T>> LoadDataFromViewAsync<T>(string view, string connectionId = "")
+        public async Task<IEnumerable<T>> LoadDataFromViewAsync<T>(string view, string connectionId = "AzureDB")
         {
             using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
 
             return await connection.QueryAsync<T>($"select * from {view}", new { });
         }
 
-        public async Task<IEnumerable<T>> LoadMultipleMapDataAsync<T, U, O>(string storedProcedure, U parameters, Func<T, O, T> func, string connectionId = "")
+        public async Task<IEnumerable<T>> LoadMultipleMapDataAsync<T, U, O>(string storedProcedure, U parameters, Func<T, O, T> func, string connectionId = "AzureDB")
         {
             using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
 
             return await connection.QueryAsync<T, O, T>(storedProcedure, func, param: parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task SaveDataAsync<T>(string storedProcedire, T parameters, string connectionId = "")
+        public async Task SaveDataAsync<T>(string storedProcedire, T parameters, string connectionId = "AzureDB")
         {
             using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
 

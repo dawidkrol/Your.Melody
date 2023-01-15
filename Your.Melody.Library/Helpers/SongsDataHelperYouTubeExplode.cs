@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Dapper;
+using System.Text.RegularExpressions;
 using Your.Melody.Library.Models;
 using YoutubeExplode;
 using YoutubeExplode.Common;
@@ -25,22 +26,19 @@ namespace Your.Melody.Library.Helpers
                 var song = new SongDataModel();
                 song.VideoUrl = video.Url;
                 song.AudioUrl = streamInfo.Url;
-                song.Title = video.Title;
-                song.Artist = video.Author.ChannelTitle;
-                SeperatingTitleAndArtist(ref song);
+                (song.Title,song.Artist) = SeperatingTitleAndArtist(video.Title);
                 output.Songs.Add(song);
             }
 
             return output;
         }
-        private void SeperatingTitleAndArtist(ref SongDataModel sdm)
+        public (string title, string artist) SeperatingTitleAndArtist(string sdm)
         {
-            var artist = Regex.Split(sdm.Title, " - ");
+            var artist = Regex.Split(sdm, " - ");
             if (artist is null || artist.Length == 1)
-                return;
-            var title = Regex.Split(artist[1], " [([{]");
-            sdm.Title = title.FirstOrDefault() ?? "";
-            sdm.Artist = artist.FirstOrDefault() ?? "";
+                return (sdm,"");
+            var title = Regex.Split(artist[1], " [(prod.)([{]");
+            return (title.FirstOrDefault() ?? "", artist.FirstOrDefault() ?? "");
         }
     }
 }

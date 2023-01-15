@@ -1,0 +1,120 @@
+####################################################################################################
+Package:AutoMapper
+Version:12.0.0
+project URL:https://automapper.org/
+Description:A convention-based object-object mapper.
+licenseUrl:https://licenses.nuget.org/MIT
+license Type:MIT
+
+####################################################################################################
+Package:AutoMapper.Extensions.Microsoft.DependencyInjection
+Version:12.0.0
+project URL:https://automapper.org/
+Description:AutoMapper extensions for ASP.NET Core
+licenseUrl:https://licenses.nuget.org/MIT
+license Type:MIT
+
+####################################################################################################
+Package:coverlet.collector
+Version:3.1.2
+project URL:https://github.com/coverlet-coverage/coverlet
+Description:Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.
+licenseUrl:https://licenses.nuget.org/MIT
+license Type:MIT
+
+####################################################################################################
+Package:Dapper
+Version:2.0.123
+project URL:https://github.com/DapperLib/Dapper
+Description:A high performance Micro-ORM supporting SQL Server, MySQL, Sqlite, SqlCE, Firebird etc..
+licenseUrl:https://licenses.nuget.org/Apache-2.0
+license Type:Apache-2.0
+
+####################################################################################################
+Package:Microsoft.Extensions.Configuration.Abstractions
+Version:7.0.0
+project URL:https://dot.net/
+Description:Abstractions of key-value pair based configuration.
+
+Commonly Used Types:
+Microsoft.Extensions.Configuration.IConfiguration
+Microsoft.Extensions.Configuration.IConfigurationBuilder
+Microsoft.Extensions.Configuration.IConfigurationProvider
+Microsoft.Extensions.Configuration.IConfigurationRoot
+Microsoft.Extensions.Configuration.IConfigurationSection
+licenseUrl:https://licenses.nuget.org/MIT
+license Type:MIT
+
+####################################################################################################
+Package:Microsoft.NET.Test.Sdk
+Version:17.1.0
+project URL:https://github.com/microsoft/vstest/
+Description:The MSbuild targets and properties for building .NET test projects.
+licenseUrl:https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.1.0/License
+license Type:LICENSE_NET.txt
+
+####################################################################################################
+Package:Swashbuckle.AspNetCore
+Version:6.2.3
+project URL:https://github.com/domaindrivendev/Swashbuckle.AspNetCore
+Description:Swagger tools for documenting APIs built on ASP.NET Core
+licenseUrl:https://licenses.nuget.org/MIT
+license Type:MIT
+
+####################################################################################################
+Package:System.Data.SqlClient
+Version:4.8.5
+project URL:https://github.com/dotnet/corefx
+Description:Provides the data provider for SQL Server. These classes provide access to versions of SQL Server and encapsulate database-specific protocols, including tabular data stream (TDS)
+
+Commonly Used Types:
+System.Data.SqlClient.SqlConnection
+System.Data.SqlClient.SqlException
+System.Data.SqlClient.SqlParameter
+System.Data.SqlDbType
+System.Data.SqlClient.SqlDataReader
+System.Data.SqlClient.SqlCommand
+System.Data.SqlClient.SqlTransaction
+System.Data.SqlClient.SqlParameterCollection
+System.Data.SqlClient.SqlClientFactory
+ 
+When using NuGet 3.x this package requires at least version 3.4.
+licenseUrl:https://licenses.nuget.org/MIT
+license Type:MIT
+
+####################################################################################################
+Package:xunit
+Version:2.4.2
+project URL:
+Description:xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.
+
+Installing this package installs xunit.core, xunit.assert, and xunit.analyzers.
+licenseUrl:https://licenses.nuget.org/Apache-2.0
+license Type:Apache-2.0
+
+####################################################################################################
+Package:xunit.assert
+Version:2.4.2
+project URL:
+Description:Includes the assertion library from xUnit.net (xunit.assert.dll). Supports .NET Standard 1.1.
+licenseUrl:https://licenses.nuget.org/Apache-2.0
+license Type:Apache-2.0
+
+####################################################################################################
+Package:xunit.runner.visualstudio
+Version:2.4.5
+project URL:https://github.com/xunit/visualstudio.xunit
+Description:Visual Studio 2019 16.8+ Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1.9.2 and v2.0+ tests. Supports .NET 4.7.2 or later, .NET Core 3.1 or later, and Universal Windows 10.0.16299 or later.
+licenseUrl:https://licenses.nuget.org/MIT
+license Type:MIT
+
+####################################################################################################
+Package:YoutubeExplode
+Version:6.2.5
+project URL:https://github.com/Tyrrrz/YoutubeExplode
+Description:The ultimate dirty YouTube library.
+      Parses public metadata on YouTube videos, lets you download them and much more.
+      Does not require an API key and does not impose usage quotas.
+licenseUrl:https://licenses.nuget.org/LGPL-3.0-only
+license Type:LGPL-3.0-only
+
