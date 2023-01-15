@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  your.melody.api:
+    image: ${DOCKER_REGISTRY-}yourmelodyapi
+    restart: always
+    build:
+      context: .
+      dockerfile: Your.Melody.API/Dockerfile
+    ports:
+        - "5001:443"
+        - "5002:80"
+    depends_on:
+        - db
+    networks:
+        - local
+
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Password1!"
+        ACCEPT_EULA: "Y"
+    ports:
+        - 1433:1433
+    networks:
+        - local
+
+networks:
+    local:
+        driver: bridge
