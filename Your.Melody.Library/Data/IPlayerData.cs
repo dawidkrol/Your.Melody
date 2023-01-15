@@ -9,5 +9,6 @@ namespace Your.Melody.Library.Data
         Task DeletePlayer(Guid playerId);
         Task EditPlayer(Guid playerId, string newName);
         Task<IEnumerable<PlayerModel>> GetPlayersByGameId(Guid gameId);
+        Task AddRounds(Guid playerId, int rounds);
     }
 }

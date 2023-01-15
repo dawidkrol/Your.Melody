@@ -89,6 +89,7 @@
     <Build Include="dbo\Stored Procedures\spPlaylist_DeleteApproved.sql" />
     <Build Include="dbo\Stored Procedures\spPlaylist_AddApproved.sql" />
     <Build Include="dbo\Stored Procedures\spPlaylist_GetApprovedById.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_AddRound.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Your.Melody.Database.publish.xml" />

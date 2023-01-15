@@ -40,6 +40,15 @@ namespace Your.Melody.Library.Data
                     points = points
                 });
         }
+        public async Task AddRounds(Guid playerId, int rounds)
+        {
+            await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spPlayer_AddRound]",
+                new
+                {
+                    playerId = playerId,
+                    rounds = rounds
+                });
+        }
         public async Task EditPlayer(Guid playerId, string newName)
         {
             await _sqlDataAccess.SaveDataAsync<object>("[dbo].[spPlayer_Edit]",

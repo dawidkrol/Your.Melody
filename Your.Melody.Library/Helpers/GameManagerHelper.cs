@@ -40,7 +40,7 @@ namespace Your.Melody.Library.Helpers
             var player = playersFromLessRounds[0];
             toPlay.Player = playersFromLessRounds[0];
             await _answerData.AddAnswer(game.Id, player.Id, toPlay.Id);
-            player.Rounds++;
+            await _playerData.AddRounds(player.Id, 1);
 
             return toPlay;
         }
