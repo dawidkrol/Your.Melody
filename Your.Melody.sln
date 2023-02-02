@@ -18,6 +18,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Your.Melody.Database", "You
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7CC1A21D-8594-449A-B0C5-238D4CF62314}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Your.Melody.TextSimilarity.API", "..\Your.Melody.TextSimilarity.API\Your.Melody.TextSimilarity.API.pyproj", "{1464A053-BEED-4A41-AC7D-5574096227D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,8 @@ Global
 		{7CC1A21D-8594-449A-B0C5-238D4CF62314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CC1A21D-8594-449A-B0C5-238D4CF62314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CC1A21D-8594-449A-B0C5-238D4CF62314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1464A053-BEED-4A41-AC7D-5574096227D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1464A053-BEED-4A41-AC7D-5574096227D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
